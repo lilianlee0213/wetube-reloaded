@@ -6,7 +6,7 @@
 		"url": "git+https://github.com/lilianlee0213/wetube-reloaded.git"
 	},
 	"scripts": {
-		"dev": "nodemon --exec babel-node src/server.js"
+		"dev": "nodemon --exec babel-node src/init.js"
 	},
 	"license": "MIT",
 	"bugs": {
