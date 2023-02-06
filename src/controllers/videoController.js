@@ -1,5 +1,9 @@
-export const home = (req, res) =>
-	res.render('home', {pageTitle: 'Home', videos});
+import Video from '../models/Video';
+
+export const home = async (req, res) => {
+	const videos = await Video.find({});
+	return res.render('home', {pageTitle: 'Home', videos});
+};
 export const watch = (req, res) => {
 	const {id} = req.params;
 	res.render('watch', {pageTitle: `Watching`});
@@ -13,9 +17,23 @@ export const postEdit = (req, res) => {
 	const {title} = req.body;
 	return res.redirect(`/videos/${id}`);
 };
-export const getUpload = (req, res) =>
-	res.render('upload', {pageTitle: `Upload a new Video`});
-export const postUpload = (req, res) => {
-	const {title} = req.body;
-	return res.redirect('/');
+export const getUpload = (req, res) => {
+	return res.render('upload', {pageTitle: `Upload a new Video`});
+};
+
+export const postUpload = async (req, res) => {
+	const {title, description, hashtags} = req.body;
+	try {
+		await Video.create({
+			title,
+			description,
+			hashtags: hashtags.split(',').map((word) => `#${word}`),
+		});
+		return res.redirect('/');
+	} catch (error) {
+		return res.render('upload', {
+			pageTitle: `Upload a new Video`,
+			errorMessage: error._message,
+		});
+	}
 };
