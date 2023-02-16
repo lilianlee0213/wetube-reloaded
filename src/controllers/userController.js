@@ -101,7 +101,8 @@ export const finishGithibLogin = async (req, res) => {
 				},
 			})
 		).json();
-		// console.log(userData.name.split('').slice(0, -1));
+		console.log(userData);
+
 		const emailData = await (
 			await fetch(`${apiUrl}/user/emails`, {
 				headers: {
@@ -143,5 +144,28 @@ export const logout = (req, res) => {
 	req.session.destroy();
 	return res.redirect('/');
 };
+export const getEdit = (req, res) => {
+	return res.render('edit-profile', {pageTitle: 'Edit Profile'});
+};
+export const postEdit = async (req, res) => {
+	const {
+		session: {
+			user: {_id},
+		},
+		body: {firstName, lastName, username, email, location},
+	} = req;
+	const updatedUser = await User.findByIdAndUpdate(
+		_id,
+		{
+			firstName,
+			lastName,
+			username,
+			email,
+			location,
+		},
+		{new: true}
+	);
+	req.session.user = updatedUser;
+	return res.redirect('/');
+};
 export const see = (req, res) => res.send('See users');
-export const edit = (req, res) => res.send('Edit users');
