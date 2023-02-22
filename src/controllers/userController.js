@@ -1,5 +1,6 @@
 import User from '../models/User';
 import bcrypt from 'bcrypt';
+import Video from '../models/Video';
 
 export const getJoin = (req, res) => res.render('join', {pageTitle: 'Join'});
 export const postJoin = async (req, res) => {
@@ -43,7 +44,7 @@ export const getLogin = (req, res) => {
 export const postLogin = async (req, res) => {
 	const {email, password} = req.body;
 	const pageTitle = 'Login';
-	const user = await User.findOne({email, socialCreated: false});
+	const user = await User.findOne({email, socialOnly: false});
 	if (!user) {
 		return res.status(400).render('login', {
 			pageTitle,
@@ -124,7 +125,7 @@ export const finishGithibLogin = async (req, res) => {
 				firstName: userData.name.split(' ')[0],
 				lastName: userData.name.split(' ')[1],
 				username: userData.login,
-				socialCreated: true,
+				socialOnly: true,
 				email: emailObj.email,
 				password: '',
 				location: userData.location,
@@ -167,7 +168,7 @@ export const postEdit = async (req, res) => {
 		},
 		{new: true}
 	);
-	console.log(file);
+	console.log(updatedUser);
 	req.session.user = updatedUser;
 	return res.redirect('/');
 };
@@ -205,4 +206,14 @@ export const postChangePasswrod = async (req, res) => {
 	await user.save();
 	return res.redirect('/users/logout');
 };
-export const see = (req, res) => res.send('See users');
+export const see = async (req, res) => {
+	const {id} = req.params;
+	const user = await User.findById(id).populate('videos');
+	if (!user) {
+		return res.status(404).render('404', {pageTitle: 'User not found'});
+	}
+	return res.render('users/profile', {
+		pageTitle: `${user.username}'s Profile`,
+		user,
+	});
+};

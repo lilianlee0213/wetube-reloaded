@@ -1,0 +1,10 @@
+extends ../base
+include ../mixins/video
+
+block content 
+    h4=`${user.username}'s videos`
+    //- each video is coming from the owner
+    each video in user.videos 
+        +video(video) 
+    else 
+        li Sorry nothing found

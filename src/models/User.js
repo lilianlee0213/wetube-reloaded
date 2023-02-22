@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import MongoStore from 'connect-mongo';
 import mongoose from 'mongoose';
 
 const userschema = new mongoose.Schema({
@@ -8,12 +9,15 @@ const userschema = new mongoose.Schema({
 	avatarUrl: String,
 	firstName: {type: String, required: true},
 	lastName: {type: String, required: true},
-	socialCreated: {type: Boolean, default: false},
+	socialOnly: {type: Boolean, default: false},
 	location: String,
+	videos: [{type: mongoose.Schema.Types.ObjectId, ref: 'Video'}],
 });
 
 userschema.pre('save', async function () {
-	this.password = await bcrypt.hash(this.password, 5);
+	if (this.isModified('password')) {
+		this.password = await bcrypt.hash(this.password, 5);
+	}
 });
 const User = mongoose.model('User', userschema);
 
