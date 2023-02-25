@@ -6,6 +6,7 @@ $black: #030303;
 $light_blue: #def1ff;
 $white: #ffffff;
 $box-shadow: 0 1px 3px 0 rgb(238, 238, 238);
+
 @mixin input-text {
 	input[type='text'] {
 		border-color: #065fd4;
