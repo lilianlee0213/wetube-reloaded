@@ -1,0 +1,97 @@
+@import '../config/variables';
+@import url('https://fonts.googleapis.com/css2?family=League+Gothic&display=swap');
+
+header {
+	// a {
+	// 	display: block;
+	// 	// padding: 10px;
+	// }
+	.header__container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 16px;
+		height: 56px;
+		border-bottom: 1px solid $grey;
+		.start {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 16px;
+			.navbar__icon {
+				width: 40px;
+				font-size: 20px;
+				color: $black;
+				&:hover {
+					background: $grey;
+					border-radius: 50%;
+					aspect-ratio: 1;
+				}
+			}
+			.header__logo {
+				color: $red;
+				font-size: 30px;
+			}
+			.header__wetube {
+				margin-left: 3px;
+				font-family: 'League Gothic', sans-serif;
+				font-size: 27px;
+				color: $black;
+			}
+		}
+		.search__bar {
+			.search__form {
+				// width: 100%;
+				div {
+					position: relative;
+					display: flex;
+					.search__icon {
+						display: none;
+					}
+					.search__input {
+						padding-inline: 16px;
+						width: 500px;
+						height: 38px;
+						font-size: 16px;
+						border-top-left-radius: 40px;
+						border-bottom-left-radius: 40px;
+						&:focus {
+							padding-left: 38px;
+							+ .search__icon {
+								position: absolute;
+								left: 12px;
+								top: 13px;
+								display: inline-block;
+								font-size: 16px;
+								color: $blue;
+							}
+						}
+					}
+					.search__btn {
+						width: 80px;
+						border: 1px solid $light_grey;
+						border-left: 0;
+						border-top-right-radius: 40px;
+						border-bottom-right-radius: 40px;
+						background-color: $grey;
+						.search__icon {
+							display: block;
+							font-size: 18px;
+							color: $black;
+						}
+					}
+				}
+			}
+		}
+		.user__btns {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 25px;
+			button {
+				font-size: 18px;
+				color: $black;
+			}
+		}
+	}
+}

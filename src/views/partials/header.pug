@@ -1,0 +1,69 @@
+header
+    div.header__container
+        div.start
+            button.navbar__icon 
+                i.fas.fa-bars
+            a(href="/")
+                i.fab.fa-youtube.header__logo 
+                span.header__wetube WeTube
+        
+        div.search__bar
+            form(method="GET" action="/search").search__form
+                div
+                    input.search__input(placeholder="Search", type="text", name="keyword")
+                    i.fas.fa-search.search__icon
+                    button(type="submit").search__btn
+                        i.fas.fa-search.search__icon
+        div.user__btns
+            button.user__setting__btn
+                i.fa.fa-ellipsis-v
+            a(href="/join").signin__btn 
+                i.fa-regular.fa-user 
+                span Sign in
+    nav 
+        ul
+            div 
+                li 
+                    a(href="/")
+                    i.fas.fa-house
+                    span Home
+                li 
+                    a(href="/")
+                        i.fa-brands.fa-tiktok
+                        span Shorts
+                li 
+                    a(href="/")
+                        i.fa-solid.fa-swatchbook
+                        span Subscription
+            div 
+                li 
+                    a(href="/")
+                        i.fa-solid.fa-clapperboard 
+                        span Library  
+                li  
+                    a(href="/")
+                        i.fa-solid.fa-clock-rotate-left 
+                        span History  
+            div 
+                p Sign in to like videos, comment, and subscribe.
+                a(href="/join").signin__btn 
+                    i.fa-regular.fa-user 
+                    span Sign in  
+            if loggedIn 
+                li 
+                    a(href="/videos/upload") Upload Video
+                li
+                    a(href=`/users/${loggedInUser._id}`) My Profile
+                li 
+                    a(href="/users/edit") Edit Profile
+                li 
+                    a(href="/users/logout") Log Out
+                
+            else 
+                //- li 
+                //-     a(href="/join") Join
+                //- li 
+                //-     a(href="/login") Login
+                //- li 
+                //-     a(href="/search") Search
+            

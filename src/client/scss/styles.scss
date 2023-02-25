@@ -1,5 +1,48 @@
-@import './_variables';
+// Congif
+@import './config/_variables.scss';
+@import './config/reset.scss';
+@import url('https://fonts.googleapis.com/css2?family=League+Gothic&family=Roboto&display=swap');
 
+// Components
+@import './components/header.scss';
+.signin__btn {
+	padding-inline: 20px;
+	border: 1px solid $light_grey;
+	border-radius: 40px;
+	line-height: 38px;
+	color: $blue;
+	box-shadow: $box-shadow;
+	font-size: 15px;
+
+	&:hover {
+		background-color: $light_blue;
+		& i {
+			background-color: $light_blue;
+		}
+	}
+	span {
+		margin-left: 10px;
+		letter-spacing: 0.2px;
+	}
+}
+// Screens
+
+// Defaults
 body {
-	background: $red;
+	font-family: 'YouTube Sans', sans-serif;
+	background-color: $white;
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+	input {
+		font-family: 'Roboto', sans-serif;
+		box-shadow: $box-shadow;
+		&:focus {
+			border: 1px solid $blue;
+		}
+	}
+	button {
+		cursor: pointer;
+	}
 }
