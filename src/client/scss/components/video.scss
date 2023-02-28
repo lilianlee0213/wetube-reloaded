@@ -1,0 +1,45 @@
+.video-mixin {
+	height: 300px;
+	.video-mixin__thumb {
+		height: 200px;
+		width: 100%;
+		max-width: 380px;
+		border-radius: 16px;
+		background-color: $black;
+		margin-bottom: 20px;
+	}
+	.video-mixin__data {
+		display: flex;
+		gap: 20px;
+		.video-mixin__avatar {
+			img {
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+			}
+		}
+		.video-mixin__desc {
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+			font-size: 14px;
+
+			.video-mixin__title {
+				font-weight: 600;
+				font-size: 16px;
+			}
+			.video-mixin__username {
+				color: $font_grey;
+				&:hover {
+					color: $black;
+				}
+			}
+			.video-mixin__meta {
+				& :first-child::after {
+					content: '\00B7';
+				}
+				color: $font_grey;
+			}
+		}
+	}
+}

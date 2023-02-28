@@ -1,7 +1,7 @@
 header
     div.header__container
         div.start
-            button.navbar__icon 
+            button.sidebar__icon
                 i.fas.fa-bars
             a(href="/")
                 i.fab.fa-youtube.header__logo 
@@ -15,55 +15,97 @@ header
                     button(type="submit").search__btn
                         i.fas.fa-search.search__icon
         div.user__btns
-            button.user__setting__btn
+            button#settingDropdown__btn
                 i.fa.fa-ellipsis-v
-            a(href="/join").signin__btn 
-                i.fa-regular.fa-user 
-                span Sign in
-    nav 
-        ul
-            div 
-                li 
-                    a(href="/")
-                    i.fas.fa-house
-                    span Home
-                li 
-                    a(href="/")
-                        i.fa-brands.fa-tiktok
-                        span Shorts
-                li 
-                    a(href="/")
-                        i.fa-solid.fa-swatchbook
-                        span Subscription
-            div 
-                li 
-                    a(href="/")
-                        i.fa-solid.fa-clapperboard 
-                        span Library  
-                li  
-                    a(href="/")
-                        i.fa-solid.fa-clock-rotate-left 
-                        span History  
-            div 
-                p Sign in to like videos, comment, and subscribe.
+            div#settingDropdown.dropdown-menu.setting-menu
+                div.dropdown-menu__links 
+                    ul
+                        li
+                            p.dropdown-menu-link 
+                                i.fa-solid.fa-user
+                                span Appearance: Device Theme
+                        li 
+                            p.dropdown-menu-link  
+                                i.fa-solid.fa-photo-film
+                                span Language: English
+                        li 
+                            p.dropdown-menu-link 
+                                i.fa-solid.fa-user-pen 
+                                span Restricted Mode: Off
+                        li 
+                            p.dropdown-menu-link  
+                                i.fa-solid.fa-arrow-right-from-bracket
+                                span Location: United States
+                div.dropdown-menu__links
+                    ul 
+                        li 
+                            a(href="/").dropdown-menu-link  
+                                i.fa-solid.fa-gears
+                                span Settings
+                div.dropdown-menu__links
+                    ul 
+                        li 
+                            a(href="/").dropdown-menu-link 
+                                i.fa-solid.fa-question
+                                span Help
+                        li 
+                            a(href="/").dropdown-menu-link  
+                                i.fa-solid.fa-file-circle-exclamation
+                                span Send feedback
+            if loggedIn
+                button#loggedInDropdown__btn.dropdown__btn.active 
+                    if !loggedInUser.avatarUrl
+                        a(href=`/users/${loggedInUser._id}`).avatar.no-image
+                            span=loggedInUser.lastName.substring(0,1) 
+                    else  
+                        img(src=`${loggedInUser.avatarUrl}`).avatar
+                div#loggedInDropdown.dropdown-menu   
+                    div.dropdown-menu__header
+                        if !loggedInUser.avatarUrl
+                            div.avatar.no-image
+                                span=loggedInUser.lastName.substring(0,1) 
+                        else  
+                            img(src=`${loggedInUser.avatarUrl}`).avatar
+                        div.dropdown-menu__account
+                            h3=loggedInUser.firstName + ' ' +loggedInUser.lastName
+                            h4=loggedInUser.email
+                            a(href="/users/edit") Manage your account 
+                    div.dropdown-menu__links 
+                        ul
+                            li
+                                a(href=`/users/${loggedInUser._id}`).dropdown-menu-link  
+                                    i.fa-solid.fa-user
+                                    span View profile
+                            li 
+                                a(href="/videos/upload").dropdown-menu-link  
+                                    i.fa-solid.fa-photo-film
+                                    span Upload videos
+                            li 
+                                a(href="/users/edit").dropdown-menu-link 
+                                    i.fa-solid.fa-user-pen 
+                                    span Edit profile
+                            li 
+                                a(href="/users/logout").dropdown-menu-link  
+                                    i.fa-solid.fa-arrow-right-from-bracket
+                                    span Sign out
+                    div.dropdown-menu__links
+                        ul 
+                            li 
+                                a(href="/").dropdown-menu-link  
+                                    i.fa-solid.fa-gears
+                                    span Settings
+                    div.dropdown-menu__links
+                        ul 
+                            li 
+                                a(href="/").dropdown-menu-link  
+                                    i.fa-solid.fa-question
+                                    span Help
+                            li 
+                                a(href="/").dropdown-menu-link  
+                                    i.fa-solid.fa-file-circle-exclamation
+                                    span Send feedback
+            else
                 a(href="/join").signin__btn 
                     i.fa-regular.fa-user 
-                    span Sign in  
-            if loggedIn 
-                li 
-                    a(href="/videos/upload") Upload Video
-                li
-                    a(href=`/users/${loggedInUser._id}`) My Profile
-                li 
-                    a(href="/users/edit") Edit Profile
-                li 
-                    a(href="/users/logout") Log Out
-                
-            else 
-                //- li 
-                //-     a(href="/join") Join
-                //- li 
-                //-     a(href="/login") Login
-                //- li 
-                //-     a(href="/search") Search
-            
+                    span Sign in
+    

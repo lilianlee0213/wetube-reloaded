@@ -6,19 +6,26 @@ header {
 	// 	display: block;
 	// 	// padding: 10px;
 	// }
+	width: 100%;
 	.header__container {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 2022;
+		transform: translateY(0);
+		background-color: $white;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 0 16px;
+		padding: 0 26px;
 		height: 56px;
 		border-bottom: 1px solid $grey;
 		.start {
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			gap: 16px;
-			.navbar__icon {
+			gap: 22px;
+			.sidebar__icon {
 				width: 40px;
 				font-size: 20px;
 				color: $black;
@@ -69,11 +76,11 @@ header {
 					}
 					.search__btn {
 						width: 80px;
-						border: 1px solid $light_grey;
+						border: 1px solid $grey;
 						border-left: 0;
 						border-top-right-radius: 40px;
 						border-bottom-right-radius: 40px;
-						background-color: $grey;
+						background-color: $light_grey;
 						.search__icon {
 							display: block;
 							font-size: 18px;
@@ -84,6 +91,7 @@ header {
 			}
 		}
 		.user__btns {
+			position: relative;
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -91,6 +99,92 @@ header {
 			button {
 				font-size: 18px;
 				color: $black;
+			}
+			.avatar {
+				width: 35px;
+				height: 35px;
+				border-radius: 50%;
+			}
+			.no-image {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background-color: $purple;
+				color: $white;
+				font-size: 18px;
+				text-transform: uppercase;
+			}
+			.dropdown-menu {
+				display: none;
+				position: absolute;
+				top: 100%;
+				right: 0;
+				width: 300px;
+				border-radius: 12px;
+				box-shadow: $dropdown-shadow;
+				background-color: $white;
+				font-family: 'Roboto', sans-serif;
+
+				.dropdown-menu__header {
+					display: flex;
+					gap: 25px;
+					padding: 20px;
+					border-bottom: 1.5px solid $grey;
+					.avatar {
+						width: 45px;
+						height: 45px;
+						font-size: 24px;
+					}
+					.dropdown-menu__account {
+						h3 {
+							font-size: 20px;
+							text-transform: capitalize;
+						}
+						h4 {
+							margin-bottom: 10px;
+							font-size: 16px;
+							line-height: 28px;
+							color: $font_grey;
+						}
+						a {
+							font-size: 16px;
+							color: $blue;
+						}
+					}
+				}
+				.dropdown-menu__links {
+					padding: 8px 0;
+					&:not(:last-of-type) {
+						border-bottom: 1.5px solid $grey;
+					}
+
+					li {
+						&:hover {
+							background-color: $light_grey;
+						}
+						.dropdown-menu-link {
+							display: flex;
+							align-items: center;
+							gap: 15px;
+							padding: 0 20px;
+							min-height: 48px;
+							i {
+								width: 30px;
+								font-size: 22px;
+							}
+							span {
+								font-size: 16px;
+								line-height: 24px;
+							}
+						}
+					}
+				}
+			}
+			.dropdown-menu.active {
+				display: block;
+			}
+			.dropdown-menu.setting-menu {
+				right: 50px;
 			}
 		}
 	}

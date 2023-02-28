@@ -1,12 +1,14 @@
 $red: #ff0000;
 $blue: #065fd4;
-$light_grey: #c6c6c6;
-$grey: #f0f0f0;
+$light_grey: #f0f0f0;
+$font_grey: #606060;
+$grey: #c6c6c6;
 $black: #030303;
 $light_blue: #def1ff;
 $white: #ffffff;
+$purple: #7e57c2;
 $box-shadow: 0 1px 3px 0 rgb(238, 238, 238);
-
+$dropdown-shadow: 1px 0px 19px -5px rgba(158, 158, 158, 1);
 @mixin input-text {
 	input[type='text'] {
 		border-color: #065fd4;

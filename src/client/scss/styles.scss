@@ -1,7 +1,7 @@
 // Congif
 @import './config/_variables.scss';
 @import './config/reset.scss';
-@import url('https://fonts.googleapis.com/css2?family=League+Gothic&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;600;700&display=swap');
 
 // Components
 @import './components/header.scss';
@@ -25,15 +25,22 @@
 		letter-spacing: 0.2px;
 	}
 }
-// Screens
+@import './components/video.scss';
 
+// Screens
+@import './screens/home.scss';
 // Defaults
+* {
+	box-sizing: border-box;
+}
 body {
 	font-family: 'YouTube Sans', sans-serif;
 	background-color: $white;
+	color: $black;
 	a {
-		color: inherit;
+		color: $black;
 		text-decoration: none;
+		display: block;
 	}
 	input {
 		font-family: 'Roboto', sans-serif;
