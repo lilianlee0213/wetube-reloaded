@@ -15,9 +15,9 @@ header
                     button(type="submit").search__btn
                         i.fas.fa-search.search__icon
         div.user__btns
-            button#settingDropdown__btn
+            button#dropdown__btn
                 i.fa.fa-ellipsis-v
-            div#settingDropdown.dropdown-menu.setting-menu
+            div#dropdown.dropdown-menu
                 div.dropdown-menu__links 
                     ul
                         li
@@ -53,13 +53,13 @@ header
                                 i.fa-solid.fa-file-circle-exclamation
                                 span Send feedback
             if loggedIn
-                button#loggedInDropdown__btn.dropdown__btn.active 
+                button#userDropdown__btn.dropdown__btn
                     if !loggedInUser.avatarUrl
                         a(href=`/users/${loggedInUser._id}`).avatar.no-image
                             span=loggedInUser.lastName.substring(0,1) 
                     else  
                         img(src=`${loggedInUser.avatarUrl}`).avatar
-                div#loggedInDropdown.dropdown-menu   
+                div#userDropdown.dropdown-menu   
                     div.dropdown-menu__header
                         if !loggedInUser.avatarUrl
                             div.avatar.no-image

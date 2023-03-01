@@ -96,9 +96,10 @@ header {
 			justify-content: center;
 			align-items: center;
 			gap: 25px;
-			button {
+			button i {
 				font-size: 18px;
 				color: $black;
+				height: 100%;
 			}
 			.avatar {
 				width: 35px;
@@ -180,11 +181,11 @@ header {
 					}
 				}
 			}
+			#dropdown {
+				right: 50px;
+			}
 			.dropdown-menu.active {
 				display: block;
-			}
-			.dropdown-menu.setting-menu {
-				right: 50px;
 			}
 		}
 	}

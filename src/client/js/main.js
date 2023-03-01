@@ -1,22 +1,4 @@
 import '../scss/styles.scss';
-const settingDropdownBtn = document.getElementById('settingDropdown__btn');
-const settingDropdown = document.getElementById('settingDropdown');
-
-const loggedInDropdown = document.getElementById('loggedInDropdown');
-const loggedInDropdownBtn = document.getElementById('loggedInDropdown__btn');
-
-settingDropdownBtn.addEventListener('click', function () {
-	if (loggedInDropdown.classList.contains('active')) {
-		loggedInDropdown.classList.remove('active');
-	}
-	settingDropdown.classList.toggle('active');
-});
-loggedInDropdownBtn.addEventListener('click', function () {
-	if (settingDropdown.classList.contains('active')) {
-		settingDropdown.classList.remove('active');
-	}
-	loggedInDropdown.classList.toggle('active');
-});
 
 const sidebarBtn = document.querySelector('.sidebar__icon');
 const sidebar = document.querySelector('.sidebar');
@@ -30,3 +12,20 @@ sidebarBtn.addEventListener('click', function () {
 });
 
 sidebarBtn.active = false;
+
+const dropdown = document.getElementById('dropdown');
+const userDropdown = document.getElementById('userDropdown');
+
+document.addEventListener('click', function (e) {
+	const btn = e.target.parentElement;
+	if (btn.id !== 'dropdown__btn') {
+		dropdown.classList.remove('active');
+	} else {
+		dropdown.classList.toggle('active');
+	}
+	if (btn.id !== 'userDropdown__btn') {
+		userDropdown.classList.remove('active');
+	} else {
+		userDropdown.classList.toggle('active');
+	}
+});
