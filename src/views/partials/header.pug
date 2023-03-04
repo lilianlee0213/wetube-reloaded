@@ -1,7 +1,7 @@
 header
     div.header__container
         div.start
-            button.sidebar__icon
+            button#sidebarBtn.sidebar__icon
                 i.fas.fa-bars
             a(href="/")
                 i.fab.fa-youtube.header__logo 
@@ -15,7 +15,7 @@ header
                     button(type="submit").search__btn
                         i.fas.fa-search.search__icon
         div.user__btns
-            button#dropdown__btn
+            button#dropdownBtn
                 i.fa.fa-ellipsis-v
             div#dropdown.dropdown-menu
                 div.dropdown-menu__links 
@@ -53,7 +53,7 @@ header
                                 i.fa-solid.fa-file-circle-exclamation
                                 span Send feedback
             if loggedIn
-                button#userDropdown__btn.dropdown__btn
+                button#userDropdownBtn.dropdown__btn
                     if !loggedInUser.avatarUrl
                         a(href=`/users/${loggedInUser._id}`).avatar.no-image
                             span=loggedInUser.lastName.substring(0,1) 

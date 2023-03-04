@@ -1,25 +1,31 @@
-const video = document.querySelector('video');
+const video = document.getElementById('video');
 const playBtn = document.getElementById('play');
+const playIcon = playBtn.querySelector('i');
 const muteBtn = document.getElementById('mute');
+const muteIcon = muteBtn.querySelector('i');
 const volumeRange = document.getElementById('volume');
 const currentTime = document.getElementById('currentTime');
 const totalTime = document.getElementById('totalTime');
 const timeline = document.getElementById('timeline');
 const fullScreenBtn = document.getElementById('fullScreen');
+const fullScreenIcon = fullScreenBtn.querySelector('i');
 const videoContainer = document.getElementById('videoContainer');
+const videoControls = document.getElementById('videoControls');
 
+let videoStatus = false;
+let controlsTimeout = null;
+let controlsMovementTimeout = null;
 let volumeValue = 0.5;
 video.volume = volumeValue;
-let videoStatus = false;
 
 const handlePlay = () => {
 	video.paused ? video.play() : video.pause();
-	playBtn.innerText = video.paused ? 'Play' : 'Pause';
+	playIcon.classList = video.paused ? 'fa-solid fa-play' : 'fa-solid fa-pause';
 };
 
 const handleMute = () => {
 	video.muted = !video.muted;
-	muteBtn.innerText = video.muted ? 'Unmute' : 'Mute';
+	muteIcon.classList = video.muted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
 	volumeRange.value = video.muted ? 0 : volumeValue;
 };
 const handleVolume = (event) => {
@@ -55,7 +61,7 @@ const handleTimelineChange = (event) => {
 		video.pause();
 	}
 };
-const handleTimelineSet = (event) => {
+const handleTimelineSet = () => {
 	if (!videoStatus) {
 		video.play();
 	}
@@ -70,14 +76,33 @@ const handleSkip = (event) => {
 	}
 };
 const handleFullScreen = () => {
-	const fullScreen = document.fullScreenElement;
-	if (fullScreen) {
-		document.exitFullscreen();
-		fullScreenBtn.innerText = ' v';
-	} else {
-		videoContainer.requestFullscreen();
-		fullScreenBtn.innerText = 'Exit Full Screen';
+	document.fullscreenElement
+		? document.exitFullscreen()
+		: videoContainer.requestFullscreen();
+};
+//
+const handleFullScreenBtn = () => {
+	document.fullscreenElement
+		? (fullScreenIcon.classList = 'fas fa-compress')
+		: (fullScreenIcon.classList = 'fas fa-expand');
+};
+const hideControls = () => {
+	videoControls.classList.remove('showing');
+};
+const handleMouseMove = () => {
+	if (controlsTimeout) {
+		clearTimeout(controlsTimeout);
+		controlsTimeout = null;
 	}
+	if (controlsMovementTimeout) {
+		clearTimeout(controlsMovementTimeout);
+		controlsMovementTimeout = null;
+	}
+	controlsMovementTimeout = setTimeout(hideControls, 3000);
+	videoControls.classList.add('showing');
+};
+const handleMouseLeave = () => {
+	controlsTimeout = setTimeout(hideControls, 3000);
 };
 window.addEventListener('keydown', handleSkip);
 playBtn.addEventListener('click', handlePlay);
@@ -88,6 +113,9 @@ video.addEventListener('timeupdate', handleTimeUpdate);
 timeline.addEventListener('input', handleTimelineChange);
 timeline.addEventListener('change', handleTimelineSet);
 fullScreenBtn.addEventListener('click', handleFullScreen);
+videoContainer.addEventListener('fullscreenchange', handleFullScreenBtn);
+videoContainer.addEventListener('mousemove', handleMouseMove);
+videoContainer.addEventListener('mouseleave', handleMouseLeave);
 video.readyState
 	? handleLoadedMetaData()
 	: video.addEventListener('loadedmetadata', handleLoadedMetaData);
