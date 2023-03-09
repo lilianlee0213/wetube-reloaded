@@ -49,10 +49,10 @@ body {
 	}
 	input {
 		font-family: 'Roboto', sans-serif;
-		box-shadow: $box-shadow;
-		&:focus {
-			border: 1px solid $blue;
-		}
+		// box-shadow: $box-shadow;
+		// &:focus {
+		// 	border: 1px solid $blue;
+		// }
 	}
 	button {
 		cursor: pointer;

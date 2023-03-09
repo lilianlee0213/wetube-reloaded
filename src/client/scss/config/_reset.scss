@@ -127,6 +127,15 @@ input {
 	outline: 0;
 }
 
+input[type='range'] {
+	appearance: none;
+	background: transparent;
+	cursor: pointer;
+	margin: 0;
+	border: none;
+	border-image-width: 0;
+	box-shadow: none;
+}
 button {
 	padding: 0;
 	border: none;

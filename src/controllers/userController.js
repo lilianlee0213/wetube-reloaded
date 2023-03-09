@@ -177,7 +177,7 @@ export const getChangePassword = (req, res) => {
 	}
 	return res.render('users/change-password', {pageTitle: 'Change Password'});
 };
-export const postChangePasswrod = async (req, res) => {
+export const postChangePassword = async (req, res) => {
 	const {
 		// check who's loggedIn with _id
 		session: {

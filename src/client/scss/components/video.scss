@@ -5,8 +5,9 @@
 		width: 100%;
 		max-width: 380px;
 		border-radius: 16px;
-		background-color: $black;
 		margin-bottom: 20px;
+		background-size: cover;
+		background-position: center;
 	}
 	.video-mixin__data {
 		display: flex;

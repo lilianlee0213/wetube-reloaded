@@ -7,7 +7,7 @@ import {
 	startGithibLogin,
 	finishGithibLogin,
 	getChangePassword,
-	postChangePasswrod,
+	postChangePassword,
 } from '../controllers/userController';
 import {
 	protectorMiddleware,
@@ -28,7 +28,7 @@ userRouter
 	.route('/change-password')
 	.all(protectorMiddleware)
 	.get(getChangePassword)
-	.post(postChangePasswrod);
+	.post(postChangePassword);
 // only allows when user is loggedOut
 userRouter.get('/github/start', publicOnlyMiddleware, startGithibLogin);
 userRouter.get('/github/finish', publicOnlyMiddleware, finishGithibLogin);

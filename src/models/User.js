@@ -1,5 +1,4 @@
 import bcrypt from 'bcrypt';
-import MongoStore from 'connect-mongo';
 import mongoose from 'mongoose';
 
 const userschema = new mongoose.Schema({

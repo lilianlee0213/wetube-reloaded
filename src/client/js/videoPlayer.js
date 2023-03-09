@@ -66,6 +66,15 @@ const handleTimelineSet = () => {
 		video.play();
 	}
 };
+const handleTimelineStyle = () => {
+	const varPercent = (timeline.value / timeline.max) * 100;
+	timeline.style.background = `linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,0,0,1) ${varPercent}%, rgba(83,83,83,1) ${varPercent}%, rgba(83,83,83,1) 100%)`;
+};
+
+const handleVideoEnded = () => {
+	const {id} = videoContainer.dataset;
+	fetch(`/api/videos/${id}/view`, {method: 'POST'});
+};
 const handleSkip = (event) => {
 	event.preventDefault();
 	if (event.keyCode == 39) {
@@ -112,6 +121,8 @@ video.addEventListener('loadedmetadata', handleLoadedMetaData);
 video.addEventListener('timeupdate', handleTimeUpdate);
 timeline.addEventListener('input', handleTimelineChange);
 timeline.addEventListener('change', handleTimelineSet);
+video.addEventListener('timeupdate', handleTimelineStyle);
+video.addEventListener('ended', handleVideoEnded);
 fullScreenBtn.addEventListener('click', handleFullScreen);
 videoContainer.addEventListener('fullscreenchange', handleFullScreenBtn);
 videoContainer.addEventListener('mousemove', handleMouseMove);

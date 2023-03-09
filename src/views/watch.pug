@@ -2,22 +2,23 @@ extends base.pug
 
 block content
     div.watch__container
-        div#videoContainer.video__container
+        div#videoContainer.video__container(data-id=video._id)
             div.video
                 video(src="/" + video.fileUrl, autoplay)#video
             div#videoControls.video__controls
-                div
+                div.video__controls__timeline
                     input(type="range", step='1', value=0, min='0')#timeline
-                div.video__controls__container    
+                div.video__controls__buttons    
                     div
                         span#play
-                            i.fa-solid.fa-play
+                            i.fa-solid.fa-pause
                         span#forward 
                             i.fas.fa-step-forward
                         span#mute
                             i.fas.fa-volume-up
-                        input(type='range', step="0.1", value=0.5, min='0', max='1')#volume 
-                        div 
+                        div
+                            input(type='range', step="0.1", value=0.5, min='0', max='1')#volume 
+                        div.video__controls__time
                             span#currentTime 00:00
                             span  / 
                             span#totalTime 00:00
@@ -33,17 +34,17 @@ block content
                 li hello
                 li hello
                 li hello
-        //- div
-        //-     p=video.description
-        //-     small=video.createdAt
-        //- div 
-        //-     small Uploaded by 
-        //-         a(href=`/users/${video.creator._id}`)=video.creator.username
-        //- if loggedInUser
-        //-     if String(video.creator._id) === String(loggedInUser._id)
-        //-         a(href=`${video.id}/edit`) Edit Video &rarr; 
-        //-         br
-        //-         a(href=`${video.id}/delete`) Delete Video &rarr; 
+        div
+            p=video.description
+            small=video.createdAt
+        div 
+            small Uploaded by 
+                a(href=`/users/${video.creator._id}`)=video.creator.username
+        if loggedInUser
+            if String(video.creator._id) === String(loggedInUser._id)
+                a(href=`${video.id}/edit`) Edit Video &rarr; 
+                br
+                a(href=`${video.id}/delete`) Delete Video &rarr; 
 block scripts
-    script(src="/static/js/videoPlayer.js") 
+    script(src="/static/js/videoPlayer.js")
         

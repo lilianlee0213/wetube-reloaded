@@ -15,6 +15,8 @@
 	},
 	"homepage": "https://github.com/lilianlee0213/wetube-reloaded#readme",
 	"dependencies": {
+		"@ffmpeg/core": "^0.11.0",
+		"@ffmpeg/ffmpeg": "^0.11.6",
 		"babel-loader": "^9.1.2",
 		"bcrypt": "^5.1.0",
 		"connect-mongo": "^4.6.0",
