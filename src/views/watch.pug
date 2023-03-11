@@ -25,6 +25,29 @@ block content
                     div
                         span#fullScreen 
                             i.fas.fa-expand
+        div.info__container
+            h1.video__title=video.title
+            div.creator__container
+                div.creator__avatar
+                    img(src=`${video.creator.avatarUrl}`,crossOrigin)
+                div.creator__info    
+                    a(href=`/users/${video.creator._id}`)=video.creator.username
+                    small 123K subscribers
+                button.subscribe__btn Subscribe
+            div.button__container 
+                button
+                    i.fa-regular.fa-thumbs-up
+                    span 23k
+                    span |
+                    i.fa-regular.fa-thumbs-down
+                button share 
+                button download 
+                button save 
+                button more
+            div.meta__container 
+                strong #{video.meta.views} views
+                small=video.createdAt
+                p=video.description
         div.comment__container
             form(action="")
                 input(type="textarea")  
@@ -34,17 +57,17 @@ block content
                 li hello
                 li hello
                 li hello
-        div
-            p=video.description
-            small=video.createdAt
-        div 
-            small Uploaded by 
-                a(href=`/users/${video.creator._id}`)=video.creator.username
-        if loggedInUser
-            if String(video.creator._id) === String(loggedInUser._id)
-                a(href=`${video.id}/edit`) Edit Video &rarr; 
-                br
-                a(href=`${video.id}/delete`) Delete Video &rarr; 
+        //- div
+        //-     p=video.description
+        //-     small=video.createdAt
+        //- div 
+        //-     small Uploaded by 
+        //-         a(href=`/users/${video.creator._id}`)=video.creator.username
+        //- if loggedInUser
+        //-     if String(video.creator._id) === String(loggedInUser._id)
+        //-         a(href=`${video.id}/edit`) Edit Video &rarr; 
+        //-         br
+        //-         a(href=`${video.id}/delete`) Delete Video &rarr; 
 block scripts
     script(src="/static/js/videoPlayer.js")
         
