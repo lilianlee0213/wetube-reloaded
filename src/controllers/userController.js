@@ -1,5 +1,6 @@
 import User from '../models/User';
 import bcrypt from 'bcrypt';
+import flash from 'express-flash';
 
 export const getJoin = (req, res) => res.render('join', {pageTitle: 'Join'});
 export const postJoin = async (req, res) => {
@@ -100,8 +101,6 @@ export const finishGithibLogin = async (req, res) => {
 				},
 			})
 		).json();
-		console.log(userData);
-
 		const emailData = await (
 			await fetch(`${apiUrl}/user/emails`, {
 				headers: {
@@ -140,7 +139,10 @@ export const finishGithibLogin = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-	req.session.destroy();
+	req.flash('success', 'Successfully Logged Out');
+	req.session.user = null;
+	res.locals.loggedInUser = req.session.user;
+	req.session.loggedIn = false;
 	return res.redirect('/');
 };
 export const getEdit = (req, res) => {
@@ -173,6 +175,7 @@ export const postEdit = async (req, res) => {
 export const getChangePassword = (req, res) => {
 	// only allowed when socialOnly=false
 	if (req.session.user.socialOnly === true) {
+		req.flash('error', "Can't change password");
 		return res.redirect('/');
 	}
 	return res.render('users/change-password', {pageTitle: 'Change Password'});
@@ -202,6 +205,7 @@ export const postChangePassword = async (req, res) => {
 	}
 	user.password = newPassword;
 	await user.save();
+	req.flash('info', 'Password Updated');
 	return res.redirect('/users/logout');
 };
 export const see = async (req, res) => {

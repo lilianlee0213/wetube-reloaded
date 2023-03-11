@@ -18,6 +18,31 @@ let controlsMovementTimeout = null;
 let volumeValue = 0.5;
 video.volume = volumeValue;
 
+const handleRangeStyle = (range, color1, color2) => {
+	const varPercent = (range.value / range.max) * 100;
+	range.style.background = `linear-gradient(90deg, ${color1} 0%, ${color1} ${varPercent}%, ${color2} ${varPercent}%, ${color2} 100%)`;
+};
+
+const handleKeyCode = (event) => {
+	event.preventDefault();
+	const keycode = event.keyCode;
+
+	if (keycode == 32) {
+		handlePlay();
+		videoControls.classList.add('showing');
+		setTimeout(hideControls, 3000);
+	}
+	if (keycode == 39) {
+		video.currentTime += 5;
+		videoControls.classList.add('showing');
+		setTimeout(hideControls, 3000);
+	}
+	if (keycode == 37) {
+		video.currentTime -= 5;
+		videoControls.classList.add('showing');
+		setTimeout(hideControls, 3000);
+	}
+};
 const handlePlay = () => {
 	video.paused ? video.play() : video.pause();
 	playIcon.classList = video.paused ? 'fa-solid fa-play' : 'fa-solid fa-pause';
@@ -27,17 +52,41 @@ const handleMute = () => {
 	video.muted = !video.muted;
 	muteIcon.classList = video.muted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
 	volumeRange.value = video.muted ? 0 : volumeValue;
+	if (video.muted) {
+		volumeRange.style.background =
+			'linear-gradient(90deg, rgba(255, 255, 255,1) 0%, rgba(255, 255, 255,1) 0%, rgba(152, 148, 144,1) 0%, rgba(152, 148, 144,1) 100%)';
+	} else {
+		handleRangeStyle(
+			volumeRange,
+			'rgba(255, 255, 255, 1)',
+			'rgba(152, 148, 144, 1)'
+		);
+	}
 };
 const handleVolume = (event) => {
 	const {
 		target: {value},
 	} = event;
-	if (video.muted) {
-		video.muted = false;
-		muteBtn.innerText = 'Mute';
-	}
-	volumeValue = value;
 	video.volume = value;
+	if (video.volume === 0) {
+		video.muted = true;
+		muteIcon.classList = 'fas fa-volume-mute';
+	} else {
+		video.muted = false;
+		muteIcon.classList = 'fas fa-volume-up';
+	}
+};
+const handleVolumeSet = (event) => {
+	const {
+		target: {value},
+	} = event;
+	volumeValue = value;
+	// const varPercent = (volumeRange.value / volumeRange.max) * 100;
+	handleRangeStyle(
+		volumeRange,
+		'rgba(255, 255, 255, 1)',
+		'rgba(152, 148, 144, 1)'
+	);
 };
 const formatTime = (seconds) => {
 	const startIdx = seconds > 3600 ? 11 : 14;
@@ -67,23 +116,14 @@ const handleTimelineSet = () => {
 	}
 };
 const handleTimelineStyle = () => {
-	const varPercent = (timeline.value / timeline.max) * 100;
-	timeline.style.background = `linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,0,0,1) ${varPercent}%, rgba(83,83,83,1) ${varPercent}%, rgba(83,83,83,1) 100%)`;
+	handleRangeStyle(timeline, 'rgba(255,0,0,1)', 'rgba(83,83,83,0.4)');
 };
 
 const handleVideoEnded = () => {
 	const {id} = videoContainer.dataset;
 	fetch(`/api/videos/${id}/view`, {method: 'POST'});
 };
-const handleSkip = (event) => {
-	event.preventDefault();
-	if (event.keyCode == 39) {
-		video.currentTime += 5;
-	}
-	if (event.keyCode == 37) {
-		video.currentTime -= 5;
-	}
-};
+
 const handleFullScreen = () => {
 	document.fullscreenElement
 		? document.exitFullscreen()
@@ -113,10 +153,12 @@ const handleMouseMove = () => {
 const handleMouseLeave = () => {
 	controlsTimeout = setTimeout(hideControls, 3000);
 };
-window.addEventListener('keydown', handleSkip);
+window.addEventListener('keydown', handleKeyCode);
 playBtn.addEventListener('click', handlePlay);
+video.addEventListener('click', handlePlay);
 muteBtn.addEventListener('click', handleMute);
 volumeRange.addEventListener('input', handleVolume);
+volumeRange.addEventListener('change', handleVolumeSet);
 video.addEventListener('loadedmetadata', handleLoadedMetaData);
 video.addEventListener('timeupdate', handleTimeUpdate);
 timeline.addEventListener('input', handleTimelineChange);

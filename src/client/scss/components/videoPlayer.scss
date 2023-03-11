@@ -1,32 +1,15 @@
-.sidebar {
-	display: none;
-}
-.watch__container {
-	padding: 80px 20px 60px 80px;
-	display: grid;
-	grid-template-areas:
-		'video more'
-		'comments more';
-}
 .video__container {
 	position: relative;
 	max-width: 1024px;
 	height: 100%;
 	grid-area: video;
-	i {
-		font-size: 25px;
-		color: white;
-	}
 	.video {
-		place-items: center;
 		width: 100%;
-		height: 100%;
-		background-color: $black;
+		aspect-ratio: 16/9;
 		video {
 			width: 100%;
 			height: 100%;
-			aspect-ratio: 16/9;
-			object-fit: contain;
+			background-color: $black;
 		}
 	}
 	.video__controls {
@@ -35,23 +18,21 @@
 		width: 100%;
 		left: 0;
 		right: 0;
-		bottom: 5px;
+		bottom: 8px;
 		padding: 0 20px;
-		background-color: transparent;
-		opacity: 1;
+		opacity: 0;
 		transition: opacity 0.3s ease-in;
 		.video__controls__timeline {
-			input {
+			input[type='range'] {
 				width: 100%;
-				height: 3.5px;
-				background: rgba(71, 71, 71, 1);
-			}
-			input[type='range']::-webkit-slider-thumb {
-				appearance: none;
-				width: 4px;
-				height: 3.5px;
-				background: $red;
-				border-radius: 8px;
+				height: 4px;
+				background-color: rgba(83, 83, 83, 0.4);
+				&::-webkit-slider-thumb {
+					appearance: none;
+					width: 4px;
+					height: 4px;
+					background: $red;
+				}
 			}
 		}
 		.video__controls__buttons {
@@ -60,20 +41,44 @@
 			justify-content: space-between;
 			align-items: center;
 			padding: 8px 0;
-			vertical-align: middle;
 			& div:first-child {
 				display: flex;
 				align-items: center;
-				gap: 20px;
+				gap: 16px;
+			}
+			i {
+				font-size: 25px;
+				color: white;
 			}
 			.fas.fa-volume-up {
-				font-size: 22px;
-				vertical-align: 1px;
+				font-size: 21px;
+			}
+			.fas.fa-volume-mute {
+				font-size: 21px;
+			}
+			input[type='range'] {
+				width: 40px;
+				height: 3px;
+				vertical-align: 4px;
+				background: linear-gradient(
+					90deg,
+					rgba(255, 255, 255, 1) 0%,
+					rgba(255, 255, 255, 1) 50%,
+					rgba(152, 148, 144, 1) 50%,
+					rgba(152, 148, 144, 1) 100%
+				);
+			}
+			input[type='range']::-webkit-slider-thumb {
+				appearance: none;
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background: $white;
 			}
 			.video__controls__time {
 				display: inline;
 				span {
-					color: $white;
+					color: #dddddd;
 					font-size: 14px;
 				}
 			}
@@ -82,26 +87,21 @@
 	.video__controls.showing {
 		opacity: 1;
 		transition: opacity 0.3s ease-in;
+
 		.video__controls__timeline {
 			input[type='range'] {
 				&:hover {
 					padding-top: 5px;
 					height: 6px;
+					&::-webkit-slider-thumb {
+						margin-top: -3px;
+						margin-left: -2px;
+						width: 18px;
+						height: 18px;
+						border-radius: 50%;
+					}
 				}
 			}
-			input[type='range']:hover::-webkit-slider-thumb {
-				width: 18px;
-				height: 18px;
-				border-radius: 50%;
-				margin-left: -2px;
-				margin-top: -3px;
-			}
 		}
-	}
-	.comment__container {
-		grid-area: comments;
-	}
-	.moreVideos {
-		grid-area: more;
 	}
 }

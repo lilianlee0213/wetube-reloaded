@@ -33,6 +33,7 @@
 
 // Screens
 @import './screens/home.scss';
+@import './screens//watch.scss';
 
 // Defaults
 * {
@@ -61,5 +62,28 @@ body {
 		padding-top: 56px;
 		width: 100%;
 		height: 100%;
+	}
+}
+@keyframes goAway {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+.message {
+	position: absolute;
+	width: 400px;
+	top: 80px;
+	left: 0;
+	right: 0;
+	padding: 10px 20px;
+	margin: 0 auto;
+	animation: goAway 3s ease-in-out;
+	animation-delay: 0.5s;
+	&.error {
+		border: 1px solid $red;
+		opacity: 0;
 	}
 }

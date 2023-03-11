@@ -1,5 +1,6 @@
 import Video from '../models/Video';
 import User from '../models/User';
+import {createFFmpeg, fetchFile} from '@ffmpeg/ffmpeg';
 
 export const home = async (req, res) => {
 	const videos = await Video.find({})
@@ -26,6 +27,7 @@ export const getEdit = async (req, res) => {
 		return res.status(404).render('404', {pageTitle: 'Video not found.'});
 	}
 	if (String(video.creator) !== String(_id)) {
+		req.flash('error', 'Not authorized');
 		return res.status(403).redirect('/');
 	}
 	return res.render('edit', {pageTitle: `Edit ${video.title}`, video});
@@ -41,6 +43,7 @@ export const postEdit = async (req, res) => {
 		return res.status(404).render('404', {pageTitle: 'Video not found.'});
 	}
 	if (String(video.creator) !== String(_id)) {
+		req.flash('error', 'Only the creator can edit the video.');
 		return res.status(403).redirect('/');
 	}
 	await Video.findByIdAndUpdate(id, {
@@ -48,6 +51,7 @@ export const postEdit = async (req, res) => {
 		description,
 		hashtags: Video.formatHashtags(hashtags),
 	});
+	req.flash('success', 'Change saved');
 	return res.redirect(`/videos/${id}`);
 };
 export const getUpload = (req, res) => {
@@ -69,6 +73,21 @@ export const postUpload = async (req, res) => {
 			creator: _id,
 			hashtags: Video.formatHashtags(hashtags),
 		});
+		// const ffmpeg = createFFmpeg({log: true});
+		// await ffmpeg.load();
+		// await ffmpeg.run(
+		// 	'-i',
+		// 	'video.mp4',
+		// 	'-ss',
+		// 	'00:00:01',
+		// 	'-frames:v',
+		// 	'1',
+		// 	'thumbnail.jpg'
+		// );
+		// const thumbBlob = new Blob([thumb.buffer], {type: 'image/jpg'});
+		// const thumbUrl = URL.createObjectURL(thumbBlob);
+		// console.log(thumbUrl);
+
 		const user = await User.findById(_id);
 		user.videos.push(newVideo._id);
 		user.save();
