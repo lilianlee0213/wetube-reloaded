@@ -12,6 +12,7 @@ const fullScreenIcon = fullScreenBtn.querySelector('i');
 const videoContainer = document.getElementById('videoContainer');
 const videoControls = document.getElementById('videoControls');
 
+// let isFocused = false;
 let videoStatus = false;
 let controlsTimeout = null;
 let controlsMovementTimeout = null;
@@ -23,26 +24,33 @@ const handleRangeStyle = (range, color1, color2) => {
 	range.style.background = `linear-gradient(90deg, ${color1} 0%, ${color1} ${varPercent}%, ${color2} ${varPercent}%, ${color2} 100%)`;
 };
 
-const handleKeyCode = (event) => {
-	event.preventDefault();
-	const keycode = event.keyCode;
+// const handleFocus = () => {
+// 	isFocused = true;
+// 	video.focus();
+// };
+// const handleKeyCode = (event) => {
+// 	if (isFocused) {
+// 		const code = event.code;
+// 		// event.preventDefault();
+// 		if (code == 'Space') {
+// 			handlePlay();
+// 			videoControls.classList.add('showing');
+// 			setTimeout(hideControls, 3000);
+// 		}
+// 		if (code === 'ArrowRight') {
+// 			video.currentTime += 5;
+// 			videoControls.classList.add('showing');
+// 			setTimeout(hideControls, 3000);
+// 		}
+// 		if (code == 'ArrowLeft') {
+// 			video.currentTime -= 5;
+// 			videoControls.classList.add('showing');
+// 			setTimeout(hideControls, 3000);
+// 		}
+// 	}
 
-	if (keycode == 32) {
-		handlePlay();
-		videoControls.classList.add('showing');
-		setTimeout(hideControls, 3000);
-	}
-	if (keycode == 39) {
-		video.currentTime += 5;
-		videoControls.classList.add('showing');
-		setTimeout(hideControls, 3000);
-	}
-	if (keycode == 37) {
-		video.currentTime -= 5;
-		videoControls.classList.add('showing');
-		setTimeout(hideControls, 3000);
-	}
-};
+// 	// event.preventDefault();
+// };
 const handlePlay = () => {
 	video.paused ? video.play() : video.pause();
 	playIcon.classList = video.paused ? 'fa-solid fa-play' : 'fa-solid fa-pause';
@@ -153,7 +161,8 @@ const handleMouseMove = () => {
 const handleMouseLeave = () => {
 	controlsTimeout = setTimeout(hideControls, 3000);
 };
-window.addEventListener('keydown', handleKeyCode);
+// video.addEventListener('keydown', handleKeyCode);
+// videoContainer.addEventListener('click', handleFocus);
 playBtn.addEventListener('click', handlePlay);
 video.addEventListener('click', handlePlay);
 muteBtn.addEventListener('click', handleMute);

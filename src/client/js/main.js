@@ -12,10 +12,13 @@ document.addEventListener('click', function (e) {
 	} else {
 		dropdown.classList.toggle('active');
 	}
-	if (btn.id !== 'userDropdownBtn') {
-		userDropdown.classList.remove('active');
-	} else {
-		userDropdown.classList.toggle('active');
+	// only when loggedIn
+	if (userDropdown) {
+		if (btn.id !== 'userDropdownBtn') {
+			userDropdown.classList.remove('active');
+		} else {
+			userDropdown.classList.toggle('active');
+		}
 	}
 });
 

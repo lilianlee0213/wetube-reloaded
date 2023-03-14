@@ -1,9 +1,21 @@
-.sidebar {
-	display: none;
-}
+// .sidebar {
+// 	display: none;
+// }
+// .sidebar {
+// 	position: fixed;
+// 	left: -100px;
+// 	transform: translateX(-100%);
+// }
+// .sidebar__toggle {
+// 	position: fixed;
+// 	left: 0%;
+// 	transform: translateX(0);
+// }
+// .sidebar
 .watch__container {
 	display: grid;
-	padding: 80px 20px 60px 80px;
+	width: 100%;
+	padding: 80px 20px;
 	grid-template-areas:
 		'video more'
 		'info more'
