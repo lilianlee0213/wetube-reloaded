@@ -1,6 +1,5 @@
 import User from '../models/User';
 import bcrypt from 'bcrypt';
-import flash from 'express-flash';
 
 export const getJoin = (req, res) => res.render('join', {pageTitle: 'Join'});
 export const postJoin = async (req, res) => {

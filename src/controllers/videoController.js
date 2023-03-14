@@ -51,7 +51,7 @@ export const postEdit = async (req, res) => {
 		description,
 		hashtags: Video.formatHashtags(hashtags),
 	});
-	req.flash('success', 'Change saved');
+	req.flash('success', 'Change');
 	return res.redirect(`/videos/${id}`);
 };
 export const getUpload = (req, res) => {
@@ -73,21 +73,6 @@ export const postUpload = async (req, res) => {
 			creator: _id,
 			hashtags: Video.formatHashtags(hashtags),
 		});
-		// const ffmpeg = createFFmpeg({log: true});
-		// await ffmpeg.load();
-		// await ffmpeg.run(
-		// 	'-i',
-		// 	'video.mp4',
-		// 	'-ss',
-		// 	'00:00:01',
-		// 	'-frames:v',
-		// 	'1',
-		// 	'thumbnail.jpg'
-		// );
-		// const thumbBlob = new Blob([thumb.buffer], {type: 'image/jpg'});
-		// const thumbUrl = URL.createObjectURL(thumbBlob);
-		// console.log(thumbUrl);
-
 		const user = await User.findById(_id);
 		user.videos.push(newVideo._id);
 		user.save();

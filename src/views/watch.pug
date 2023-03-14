@@ -46,18 +46,20 @@ block content
                 button 
                     i.fa-solid.fa-download
                     span Download 
-                button save
+                button
                     i.fa-solid.fa-bookmark
                     span Save  
                 button
+                    i.fa-solid.fa-ellipsis
             div.meta__container 
                 strong #{video.meta.views} views
                 small=video.createdAt
+                small.hashtags=video.hashtags
                 p=video.description
         div.comment__container
             form#commentForm.comment__form
-                textarea(cols="30", rows="10", placeholder="Write a nice comment....")
-                button Add Comment
+                textarea(cols="30", rows="10", placeholder="Write a nice comment....")#textarea
+                button Comment
         div.moreVideos
             ul 
                 li hello

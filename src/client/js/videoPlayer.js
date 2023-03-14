@@ -24,33 +24,28 @@ const handleRangeStyle = (range, color1, color2) => {
 	range.style.background = `linear-gradient(90deg, ${color1} 0%, ${color1} ${varPercent}%, ${color2} ${varPercent}%, ${color2} 100%)`;
 };
 
-// const handleFocus = () => {
-// 	isFocused = true;
-// 	video.focus();
-// };
-// const handleKeyCode = (event) => {
-// 	if (isFocused) {
-// 		const code = event.code;
-// 		// event.preventDefault();
-// 		if (code == 'Space') {
-// 			handlePlay();
-// 			videoControls.classList.add('showing');
-// 			setTimeout(hideControls, 3000);
-// 		}
-// 		if (code === 'ArrowRight') {
-// 			video.currentTime += 5;
-// 			videoControls.classList.add('showing');
-// 			setTimeout(hideControls, 3000);
-// 		}
-// 		if (code == 'ArrowLeft') {
-// 			video.currentTime -= 5;
-// 			videoControls.classList.add('showing');
-// 			setTimeout(hideControls, 3000);
-// 		}
-// 	}
+const handleKeyCode = (event) => {
+	const code = event.code;
+	if (event.target.id !== 'textarea') {
+		if (code == 'Space') {
+			event.preventDefault();
+			handlePlay();
+			videoControls.classList.add('showing');
+		}
+		if (code === 'ArrowRight') {
+			video.currentTime += 5;
+			videoControls.classList.add('showing');
+			setTimeout(hideControls, 3000);
+		}
+		if (code == 'ArrowLeft') {
+			video.currentTime -= 5;
+			videoControls.classList.add('showing');
+			setTimeout(hideControls, 3000);
+		}
+	}
 
-// 	// event.preventDefault();
-// };
+	// event.preventDefault();
+};
 const handlePlay = () => {
 	video.paused ? video.play() : video.pause();
 	playIcon.classList = video.paused ? 'fa-solid fa-play' : 'fa-solid fa-pause';
@@ -161,8 +156,7 @@ const handleMouseMove = () => {
 const handleMouseLeave = () => {
 	controlsTimeout = setTimeout(hideControls, 3000);
 };
-// video.addEventListener('keydown', handleKeyCode);
-// videoContainer.addEventListener('click', handleFocus);
+window.addEventListener('keydown', handleKeyCode);
 playBtn.addEventListener('click', handlePlay);
 video.addEventListener('click', handlePlay);
 muteBtn.addEventListener('click', handleMute);
