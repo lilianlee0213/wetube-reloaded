@@ -28,8 +28,8 @@ block content
         div.info__container
             h1.video__title=video.title
             div.creator__container
-                div.creator__avatar
-                    img(src=`${video.creator.avatarUrl}`,crossOrigin)
+                a(href=`/users/${video.creator._id}`)
+                    img(src=`${video.creator.avatarUrl}`,crossOrigin).avatar
                 div.creator__info    
                     a(href=`/users/${video.creator._id}`)=video.creator.username
                     small 123K subscribers
@@ -52,21 +52,39 @@ block content
                 button
                     i.fa-solid.fa-ellipsis
             div.meta__container 
-                strong #{video.meta.views} views
-                small=video.createdAt
+                strong.views #{video.meta.views} views
+                small.createdAt=moment(video.createdAt).calendar()
                 small.hashtags=video.hashtags
                 p=video.description
         div.comment__container
-            form#commentForm.comment__form
-                textarea(cols="30", rows="10", placeholder="Write a nice comment....")#textarea
-                button Comment
+            if loggedIn
+                if !loggedInUser.avatarUrl
+                    a(href=`/users/${loggedInUser._id}`).avatar.no-image
+                        span=loggedInUser.lastName.substring(0,1) 
+                else  
+                    img(src=`${loggedInUser.avatarUrl},`,crossOrigin).avatar
+                form#commentForm.comment__form
+                    textarea(placeholder="Add a comment...")#textarea
+                    div.button__container
+                        button.cancel Cancel
+                        button.comment Comment
+            else
+                div.avatar.default-user
+                    i.fa-solid.fa-user
+                a(href="../login").comment__form
+                    textarea(placeholder="Add a comment...")#textarea
         div.moreVideos
-            ul 
-                li hello
-                li hello
-                li hello
-                li hello
-                input(type="text")
+            div
+                each video in videos
+                    div.video-thumbnail(style=`background-image:url(${ "/" + video.thumbUrl});background-size:cover; background-position:center;`)
+                    div.video-desc
+                        a(href=`/videos/${video.id}`).video-title=video.title
+                        a(href=`/users/${video.creator.id}`).video-username=video.creator.username  
+                        div.video-meta 
+                            span #{video.meta.views} views
+                            span #{video.meta.rating} rating
+                else 
+                    li sorry nothing found
         //- div
         //-     p=video.description
         //-     small=video.createdAt

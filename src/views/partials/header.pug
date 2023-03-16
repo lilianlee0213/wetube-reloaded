@@ -55,8 +55,7 @@ header
             if loggedIn
                 button#userDropdownBtn.dropdown__btn
                     if !loggedInUser.avatarUrl
-                        a(href=`/users/${loggedInUser._id}`).avatar.no-image
-                            span=loggedInUser.lastName.substring(0,1) 
+                        span.avatar.no-image=loggedInUser.lastName.substring(0,1) 
                     else  
                         img(src=`${loggedInUser.avatarUrl},`,crossOrigin).avatar
                 div#userDropdown.dropdown-menu   
