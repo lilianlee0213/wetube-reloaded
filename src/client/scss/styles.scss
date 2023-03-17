@@ -5,7 +5,7 @@
 
 // Components
 @import './components/header.scss';
-.signin__btn {
+.signin-btn {
 	// width: ;
 	padding-inline: 20px;
 	border: 1px solid $light_grey;
@@ -24,6 +24,20 @@
 	span {
 		margin-left: 10px;
 		letter-spacing: 0.2px;
+	}
+}
+.avatar {
+	height: 45px;
+	border-radius: 50%;
+	aspect-ratio: 1;
+	&.no-image {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: $purple;
+		color: $white;
+		font-size: 22px;
+		text-transform: uppercase;
 	}
 }
 @import './components/video.scss';

@@ -1,59 +1,58 @@
 header
     div.header__container
-        div.start
-            button#sidebarBtn.sidebar__icon
+        div.header-start
+            button#sidebarIcon.sidebar-icon
                 i.fas.fa-bars
             a(href="/")
-                i.fab.fa-youtube.header__logo 
-                span.header__wetube WeTube
-        
-        div.search__bar
-            form(method="GET" action="/search").search__form
+                i.fab.fa-youtube.header-logo 
+                span.header-wetube WeTube
+        div.header-search
+            form(method="GET" action="/search").search-form
                 div
-                    input.search__input(placeholder="Search", type="text", name="keyword")
-                    i.fas.fa-search.search__icon
-                    button(type="submit").search__btn
-                        i.fas.fa-search.search__icon
-        div.user__btns
+                    input.search-input(placeholder="Search", type="text", name="keyword")
+                    i.fas.fa-search.search-icon
+                    button(type="submit").search-btn
+                        i.fas.fa-search.search-icon
+        div.header-user
             button#dropdownBtn
                 i.fa.fa-ellipsis-v
             div#dropdown.dropdown-menu
                 div.dropdown-menu__links 
                     ul
                         li
-                            p.dropdown-menu-link 
+                            p.dropdown-menu__link 
                                 i.fa-solid.fa-user
                                 span Appearance: Device Theme
                         li 
-                            p.dropdown-menu-link  
+                            p.dropdown-menu__link  
                                 i.fa-solid.fa-photo-film
                                 span Language: English
                         li 
-                            p.dropdown-menu-link 
+                            p.dropdown-menu__link 
                                 i.fa-solid.fa-user-pen 
                                 span Restricted Mode: Off
                         li 
-                            p.dropdown-menu-link  
+                            p.dropdown-menu__link  
                                 i.fa-solid.fa-arrow-right-from-bracket
                                 span Location: United States
                 div.dropdown-menu__links
                     ul 
                         li 
-                            a(href="/").dropdown-menu-link  
+                            a(href="/").dropdown-menu__link  
                                 i.fa-solid.fa-gears
                                 span Settings
                 div.dropdown-menu__links
                     ul 
                         li 
-                            a(href="/").dropdown-menu-link 
+                            a(href="/").dropdown-menu__link 
                                 i.fa-solid.fa-question
                                 span Help
                         li 
-                            a(href="/").dropdown-menu-link  
+                            a(href="/").dropdown-menu__link  
                                 i.fa-solid.fa-file-circle-exclamation
                                 span Send feedback
             if loggedIn
-                button#userDropdownBtn.dropdown__btn
+                button#userDropdownBtn.dropdown-user__btn
                     if !loggedInUser.avatarUrl
                         span.avatar.no-image=loggedInUser.lastName.substring(0,1) 
                     else  
@@ -72,39 +71,39 @@ header
                     div.dropdown-menu__links 
                         ul
                             li
-                                a(href=`/users/${loggedInUser._id}`).dropdown-menu-link  
+                                a(href=`/users/${loggedInUser._id}`).dropdown-menu__link  
                                     i.fa-solid.fa-user
                                     span View profile
                             li 
-                                a(href="/videos/upload").dropdown-menu-link  
+                                a(href="/videos/upload").dropdown-menu__link  
                                     i.fa-solid.fa-photo-film
                                     span Upload videos
                             li 
-                                a(href="/users/edit").dropdown-menu-link 
+                                a(href="/users/edit").dropdown-menu__link 
                                     i.fa-solid.fa-user-pen 
                                     span Edit profile
                             li 
-                                a(href="/users/logout").dropdown-menu-link  
+                                a(href="/users/logout").dropdown-menu__link  
                                     i.fa-solid.fa-arrow-right-from-bracket
                                     span Sign out
                     div.dropdown-menu__links
                         ul 
                             li 
-                                a(href="/").dropdown-menu-link  
+                                a(href="/").dropdown-menu__link  
                                     i.fa-solid.fa-gears
                                     span Settings
                     div.dropdown-menu__links
                         ul 
                             li 
-                                a(href="/").dropdown-menu-link  
+                                a(href="/").dropdown-menu__link  
                                     i.fa-solid.fa-question
                                     span Help
                             li 
-                                a(href="/").dropdown-menu-link  
+                                a(href="/").dropdown-menu__link  
                                     i.fa-solid.fa-file-circle-exclamation
                                     span Send feedback
             else
-                a(href="/join").signin__btn 
+                a(href="/login").signin-btn 
                     i.fa-regular.fa-user 
                     span Sign in
     

@@ -20,6 +20,8 @@ app.use(function (req, res, next) {
 	next();
 });
 app.use(logger);
+// takes string and turns back to js object
+app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(
 	session({

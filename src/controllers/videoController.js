@@ -1,17 +1,18 @@
 import Video from '../models/Video';
 import User from '../models/User';
-import {createFFmpeg, fetchFile} from '@ffmpeg/ffmpeg';
+import Comment from '../models/Comment';
 
 export const home = async (req, res) => {
 	const videos = await Video.find({})
 		.sort({createdAt: 'desc'})
 		.populate('creator');
-	// console.log(videos);
 	return res.render('home', {pageTitle: 'Home', videos});
 };
 export const watch = async (req, res) => {
 	const {id} = req.params;
-	const video = await Video.findById(id).populate('creator');
+	const video = await Video.findById(id)
+		.populate('creator')
+		.populate('comments');
 	const videos = await Video.find({});
 	if (!video) {
 		return res.render('404', {pageTitle: 'Video not found.'});
@@ -124,4 +125,31 @@ export const registerView = async (req, res) => {
 	video.meta.views = video.meta.views + 1;
 	await video.save();
 	return res.sendStatus(200);
+};
+
+export const createComment = async (req, res) => {
+	const {
+		session: {user},
+		body: {text},
+		params: {id},
+	} = req;
+	const video = await Video.findById(id);
+	if (!video) {
+		return res.sendStatus(404);
+	}
+	const comment = await Comment.create({
+		text,
+		creator: user._id,
+		video: id,
+		username: user.username,
+		avatarUrl: user.avatarUrl,
+		lastName: user.lastName,
+	});
+	// const commentUser = await User.findById(user._id);
+	video.comments.push(comment._id);
+	console.log(comment);
+	// commentUser.comments.push(comment._id);
+	// commentUser.save();
+	video.save();
+	return res.sendStatus(201);
 };

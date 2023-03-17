@@ -2,10 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Gothic&display=swap');
 
 header {
-	// a {
-	// 	display: block;
-	// 	// padding: 10px;
-	// }
 	width: 100%;
 	.header__container {
 		position: fixed;
@@ -20,12 +16,12 @@ header {
 		padding: 0 26px;
 		height: 56px;
 		border-bottom: 1px solid $grey;
-		.start {
+		.header-start {
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			gap: 22px;
-			.sidebar__icon {
+			.sidebar-icon {
 				width: 40px;
 				font-size: 20px;
 				color: $black;
@@ -35,27 +31,26 @@ header {
 					aspect-ratio: 1;
 				}
 			}
-			.header__logo {
+			.header-logo {
 				color: $red;
 				font-size: 30px;
 			}
-			.header__wetube {
+			.header-wetube {
 				margin-left: 3px;
 				font-family: 'League Gothic', sans-serif;
 				font-size: 27px;
 				color: $black;
 			}
 		}
-		.search__bar {
-			.search__form {
-				// width: 100%;
+		.header-search {
+			.search-form {
 				div {
 					position: relative;
 					display: flex;
-					.search__icon {
+					.search-icon {
 						display: none;
 					}
-					.search__input {
+					.search-input {
 						padding-inline: 16px;
 						width: 500px;
 						height: 38px;
@@ -64,24 +59,24 @@ header {
 						border-bottom-left-radius: 40px;
 						&:focus {
 							padding-left: 38px;
-							+ .search__icon {
+							+ .search-icon {
 								position: absolute;
 								left: 12px;
-								top: 13px;
+								top: 10px;
 								display: inline-block;
 								font-size: 16px;
 								color: $blue;
 							}
 						}
 					}
-					.search__btn {
+					.search-btn {
 						width: 80px;
 						border: 1px solid $grey;
 						border-left: 0;
 						border-top-right-radius: 40px;
 						border-bottom-right-radius: 40px;
 						background-color: $light_grey;
-						.search__icon {
+						.search-icon {
 							display: block;
 							font-size: 18px;
 							color: $black;
@@ -90,30 +85,16 @@ header {
 				}
 			}
 		}
-		.user__btns {
+		.header-user {
 			position: relative;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			gap: 25px;
-			button i {
+			.fa.fa-ellipsis-v {
 				font-size: 18px;
 				color: $black;
 				height: 100%;
-			}
-			.avatar {
-				width: 35px;
-				height: 35px;
-				border-radius: 50%;
-			}
-			.no-image {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				background-color: $purple;
-				color: $white;
-				font-size: 18px;
-				text-transform: uppercase;
 			}
 			.dropdown-menu {
 				display: none;
@@ -131,11 +112,6 @@ header {
 					gap: 25px;
 					padding: 20px;
 					border-bottom: 1.5px solid $grey;
-					.avatar {
-						width: 45px;
-						height: 45px;
-						font-size: 24px;
-					}
 					.dropdown-menu__account {
 						h3 {
 							font-size: 20px;
@@ -163,7 +139,7 @@ header {
 						&:hover {
 							background-color: $light_grey;
 						}
-						.dropdown-menu-link {
+						.dropdown-menu__link {
 							display: flex;
 							align-items: center;
 							gap: 15px;
@@ -178,6 +154,14 @@ header {
 								line-height: 24px;
 							}
 						}
+					}
+				}
+			}
+			.dropdown-user__btn {
+				.avatar {
+					height: 40px;
+					&.no-image {
+						font-size: 20px;
 					}
 				}
 			}

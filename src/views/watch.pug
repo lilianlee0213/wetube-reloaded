@@ -37,9 +37,8 @@ block content
             div.button__container 
                 button
                     i.fa-regular.fa-thumbs-up
-                    span 23k
                     span |
-                    i.fa-regular.fa-thumbs-down
+                    span 23k
                 button 
                     i.fa-solid.fa-arrow-up-from-bracket
                     span Share
@@ -56,23 +55,44 @@ block content
                 small.createdAt=moment(video.createdAt).calendar()
                 small.hashtags=video.hashtags
                 p=video.description
-        div.comment__container
-            if loggedIn
-                if !loggedInUser.avatarUrl
-                    a(href=`/users/${loggedInUser._id}`).avatar.no-image
-                        span=loggedInUser.lastName.substring(0,1) 
-                else  
-                    img(src=`${loggedInUser.avatarUrl},`,crossOrigin).avatar
-                form#commentForm.comment__form
-                    textarea(placeholder="Add a comment...")#textarea
-                    div.button__container
-                        button.cancel Cancel
-                        button.comment Comment
-            else
-                div.avatar.default-user
-                    i.fa-solid.fa-user
-                a(href="../login").comment__form
-                    textarea(placeholder="Add a comment...")#textarea
+
+        div.comments__container
+            div.comment-form__container
+                if loggedIn
+                    if !loggedInUser.avatarUrl
+                        a(href=`/users/${loggedInUser._id}`).avatar.no-image
+                            span=loggedInUser.lastName.substring(0,1) 
+                    else
+                        a(href=`/users/${loggedInUser._id}`)   
+                            img(src=`${loggedInUser.avatarUrl},`,crossOrigin).avatar
+                    form#commentForm.comment__form
+                        textarea(placeholder="Add a comment...")#textarea
+                        div.comment__btns
+                            button.cancel Cancel
+                            button.comment Comment
+
+                else
+                    div.avatar.default-user
+                        i.fa-solid.fa-user
+                    a(href="../login").comment__form
+                        textarea(placeholder="Add a comment...")
+            div.comment-view__container
+                each comment in video.comments.reverse()
+                    div.comment-list
+                        if !comment.avatarUrl
+                            a(href=`/users/${comment._id}`).avatar.no-image
+                                    span=comment.lastName.substring(0,1) 
+                        else
+                            a(href=`/users/${comment._id}`)   
+                                img(src=`${comment.avatarUrl},`,crossOrigin).avatar
+                        div.comment-list__container
+                            span=comment.username 
+                            span=moment(video.createdAt).calendar()
+                            p=comment.text
+                            span 
+                                i.fa-regular.fa-thumbs-up
+                            span=video.meta.rating
+
         div.moreVideos
             div
                 each video in videos

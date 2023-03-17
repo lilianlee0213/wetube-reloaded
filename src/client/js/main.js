@@ -1,6 +1,6 @@
 import '../scss/styles.scss';
 
-const sidebarBtn = document.getElementById('sidebarBtn');
+const sidebarBtn = document.getElementById('sidebarIcon');
 const sidebar = document.getElementById('sidebar');
 const dropdown = document.getElementById('dropdown');
 const userDropdown = document.getElementById('userDropdown');
@@ -24,9 +24,9 @@ document.addEventListener('click', function (e) {
 
 sidebarBtn.addEventListener('click', function () {
 	if (this.active) {
-		sidebar.classList.remove('sidebar__toggle');
+		sidebar.classList.remove('sidebar-toggle');
 	} else {
-		sidebar.classList.add('sidebar__toggle');
+		sidebar.classList.add('sidebar-toggle');
 	}
 	this.active = !this.active;
 });
