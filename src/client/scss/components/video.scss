@@ -12,13 +12,6 @@
 	.video-mixin__data {
 		display: flex;
 		gap: 20px;
-		.video-mixin__avatar {
-			img {
-				width: 40px;
-				height: 40px;
-				border-radius: 50%;
-			}
-		}
 		.video-mixin__desc {
 			display: flex;
 			flex-direction: column;
@@ -28,6 +21,7 @@
 			.video-mixin__title {
 				font-weight: 600;
 				font-size: 16px;
+				line-height: 18px;
 			}
 			.video-mixin__username {
 				color: $font_grey;
@@ -37,7 +31,9 @@
 			}
 			.video-mixin__meta {
 				& :first-child::after {
-					content: '\00B7';
+					content: ' '+ '\00B7'+' ';
+					font-weight: 900;
+					vertical-align: -1.2px;
 				}
 				color: $font_grey;
 			}

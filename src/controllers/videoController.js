@@ -1,6 +1,7 @@
 import Video from '../models/Video';
 import User from '../models/User';
 import Comment from '../models/Comment';
+import {json} from 'express';
 
 export const home = async (req, res) => {
 	const videos = await Video.find({})
@@ -13,7 +14,7 @@ export const watch = async (req, res) => {
 	const video = await Video.findById(id)
 		.populate('creator')
 		.populate('comments');
-	const videos = await Video.find({});
+	const videos = await Video.find({}).populate('creator');
 	if (!video) {
 		return res.render('404', {pageTitle: 'Video not found.'});
 	}
@@ -35,12 +36,12 @@ export const getEdit = async (req, res) => {
 	return res.render('edit', {pageTitle: `Edit ${video.title}`, video});
 };
 export const postEdit = async (req, res) => {
+	const {id} = req.params;
 	const {
 		user: {_id},
 	} = req.session;
-	const {id} = req.params;
 	const {title, description, hashtags} = req.body;
-	const video = await Video.exists({_id: id});
+	const video = await Video.findById(id);
 	if (!video) {
 		return res.status(404).render('404', {pageTitle: 'Video not found.'});
 	}
@@ -147,9 +148,32 @@ export const createComment = async (req, res) => {
 	});
 	// const commentUser = await User.findById(user._id);
 	video.comments.push(comment._id);
-	console.log(comment);
 	// commentUser.comments.push(comment._id);
 	// commentUser.save();
 	video.save();
 	return res.sendStatus(201);
 };
+
+export const giveLikes = async (req, res) => {
+	const {id} = req.params;
+	const {
+		user: {_id},
+	} = req.session;
+	const video = await Video.findById(id);
+	if (!video) {
+		return res.sendStatus(404);
+	}
+
+	// like 버튼을 누를떄 video.like array에 user_id 추가.
+	video.meta.rating += 1;
+	video.likes.push(_id);
+	// 이미 video.like array에 user_id가 있을때
+	//똑같은 id 빼기.
+	//없을때 추가하기.
+	// video.likes.push(_id);
+	await video.save();
+	return res.sendStatus(200);
+};
+
+// lilian -> loggedinSession._id = 641483c331fd21d3f93a0290
+// lilian이 좋아한 비디오의 like array = [ new ObjectId("641483c331fd21d3f93a0290") ]

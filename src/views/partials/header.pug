@@ -52,11 +52,13 @@ header
                                 i.fa-solid.fa-file-circle-exclamation
                                 span Send feedback
             if loggedIn
-                button#userDropdownBtn.dropdown-user__btn
+                div.dropdown-user__btn
                     if !loggedInUser.avatarUrl
-                        span.avatar.no-image=loggedInUser.lastName.substring(0,1) 
+                        div#userDropdownBtn.avatar.no-image
+                                span=loggedInUser.lastName.substring(0,1) 
                     else  
-                        img(src=`${loggedInUser.avatarUrl},`,crossOrigin).avatar
+                        div#userDropdownBtn
+                            img(src=`${loggedInUser.avatarUrl}`,crossOrigin).avatar
                 div#userDropdown.dropdown-menu   
                     div.dropdown-menu__header
                         if !loggedInUser.avatarUrl

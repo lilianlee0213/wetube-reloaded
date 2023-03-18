@@ -1,15 +1,20 @@
 mixin video(video) 
    div.video-mixin 
         div.video-mixin__thumb(style=`background-image:url(${ "/" + video.thumbUrl});background-size:cover; background-position:center;`)
-        div.video-mixin__data 
+        div.video-mixin__data
             div.video-mixin__avatar
-                img(src=`${video.creator.avatarUrl}`,crossOrigin)
+                if !video.creator.avatarUrl
+                        a(href=`/users/${video.creator._id}`).avatar.no-image
+                            span=video.creator.lastName.substring(0,1) 
+                else
+                        a(href=`/users/${video.creator._id}`)   
+                            img(src=`${video.creator.avatarUrl}`,crossOrigin).avatar
             div.video-mixin__desc
                 a(href=`/videos/${video.id}`).video-mixin__title=video.title
                 a(href=`/users/${video.creator.id}`).video-mixin__username=video.creator.username  
                 div.video-mixin__meta 
                     span #{video.meta.views} views
-                    span #{video.meta.rating} rating
+                    span=moment(video.createdAt).fromNow()
 //- h4 
            
 //-         p=video.description

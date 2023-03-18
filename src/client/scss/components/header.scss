@@ -158,6 +158,7 @@ header {
 				}
 			}
 			.dropdown-user__btn {
+				cursor: pointer;
 				.avatar {
 					height: 40px;
 					&.no-image {

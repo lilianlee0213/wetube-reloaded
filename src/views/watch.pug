@@ -2,7 +2,7 @@ extends base.pug
 
 block content
     div.watch__container
-        div#videoContainer.video__container(data-id=video._id)
+        div#videoContainer.video-container(data-id=video._id)
             div.video
                 video(src="/" + video.fileUrl, autoplay)#video
             div#videoControls.video__controls
@@ -25,20 +25,24 @@ block content
                     div
                         span#fullScreen 
                             i.fas.fa-expand
-        div.info__container
-            h1.video__title=video.title
-            div.creator__container
-                a(href=`/users/${video.creator._id}`)
-                    img(src=`${video.creator.avatarUrl}`,crossOrigin).avatar
-                div.creator__info    
+        div.info-container
+            h1.video-title=video.title
+            div.video-creator
+                if !video.creator.avatarUrl
+                    a(href=`/users/${video.creator._id}`).avatar.no-image
+                        span=video.creator.lastName.substring(0,1) 
+                else
+                    a(href=`/users/${video.creator._id}`)   
+                        img(src=`${video.creator.avatarUrl}`,crossOrigin).avatar
+                div.video-creator__info   
                     a(href=`/users/${video.creator._id}`)=video.creator.username
                     small 123K subscribers
-                button.subscribe__btn Subscribe
-            div.button__container 
-                button
+                button.subscribe-btn Subscribe
+            div.video-buttons 
+                button#likeBtn
                     i.fa-regular.fa-thumbs-up
                     span |
-                    span 23k
+                    span=video.meta.rating
                 button 
                     i.fa-solid.fa-arrow-up-from-bracket
                     span Share
@@ -50,72 +54,71 @@ block content
                     span Save  
                 button
                     i.fa-solid.fa-ellipsis
-            div.meta__container 
-                strong.views #{video.meta.views} views
-                small.createdAt=moment(video.createdAt).calendar()
-                small.hashtags=video.hashtags
+            div.video-meta 
+                strong.video-meta__views #{video.meta.views} views
+                small.video-meta__createdAt=moment(video.createdAt).fromNow()
+                small.video-meta__hashtags=video.hashtags
                 p=video.description
 
-        div.comments__container
-            div.comment-form__container
+        div.comments-container
+            div.comment-form
                 if loggedIn
                     if !loggedInUser.avatarUrl
                         a(href=`/users/${loggedInUser._id}`).avatar.no-image
                             span=loggedInUser.lastName.substring(0,1) 
                     else
                         a(href=`/users/${loggedInUser._id}`)   
-                            img(src=`${loggedInUser.avatarUrl},`,crossOrigin).avatar
-                    form#commentForm.comment__form
+                            img(src=`${loggedInUser.avatarUrl}`,crossOrigin).avatar
+                    form#commentForm.comment-form__form
                         textarea(placeholder="Add a comment...")#textarea
-                        div.comment__btns
+                        div.comment-form__btns
                             button.cancel Cancel
                             button.comment Comment
-
                 else
                     div.avatar.default-user
                         i.fa-solid.fa-user
-                    a(href="../login").comment__form
+                    a(href="../login").comment-form__form.to-login
                         textarea(placeholder="Add a comment...")
-            div.comment-view__container
+            div.comment-view
                 each comment in video.comments.reverse()
-                    div.comment-list
+                    div.comment-view__list
                         if !comment.avatarUrl
                             a(href=`/users/${comment._id}`).avatar.no-image
                                     span=comment.lastName.substring(0,1) 
                         else
                             a(href=`/users/${comment._id}`)   
-                                img(src=`${comment.avatarUrl},`,crossOrigin).avatar
-                        div.comment-list__container
+                                img(src=`${comment.avatarUrl}`,crossOrigin).avatar
+                        div.comment-view__content
                             span=comment.username 
-                            span=moment(video.createdAt).calendar()
+                            span=moment(video.createdAt).fromNow()
                             p=comment.text
                             span 
                                 i.fa-regular.fa-thumbs-up
                             span=video.meta.rating
 
-        div.moreVideos
-            div
-                each video in videos
+        div.moreVideos-container
+            each video in videos
+                div.moreVideo
                     div.video-thumbnail(style=`background-image:url(${ "/" + video.thumbUrl});background-size:cover; background-position:center;`)
                     div.video-desc
-                        a(href=`/videos/${video.id}`).video-title=video.title
-                        a(href=`/users/${video.creator.id}`).video-username=video.creator.username  
+                        a(href=`/videos/${video.id}`).video-title=video.title.slice(0,40) + '...'
+                        a(href=`/users/${video.creator._id}`).video-creator=video.creator.username
                         div.video-meta 
                             span #{video.meta.views} views
-                            span #{video.meta.rating} rating
-                else 
-                    li sorry nothing found
+                            span=moment(video.createdAt).fromNow()
+            else 
+                li sorry nothing found
         //- div
         //-     p=video.description
         //-     small=video.createdAt
         //- div 
         //-     small Uploaded by 
         //-         a(href=`/users/${video.creator._id}`)=video.creator.username
-        //- if loggedInUser
-        //-     if String(video.creator._id) === String(loggedInUser._id)
-        //-         a(href=`${video.id}/edit`) Edit Video &rarr; 
-        //-         br
-        //-         a(href=`${video.id}/delete`) Delete Video &rarr; 
+        if loggedInUser
+            if String(video.creator._id) === String(loggedInUser._id)
+                a(href=`${video.id}/edit`) Edit Video &rarr; 
+                br
+                a(href=`${video.id}/delete`) Delete Video &rarr; 
 block scripts
     script(src="/static/js/videoPlayer.js")
     script(src="/static/js/commentSection.js")
