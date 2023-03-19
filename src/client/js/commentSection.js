@@ -1,12 +1,11 @@
 const videoContainer = document.getElementById('videoContainer');
 const form = document.getElementById('commentForm');
-const textarea = form.querySelector('textarea');
-const commentBtn = form.querySelector('.comment');
 
 const handleSubmit = (event) => {
 	event.preventDefault();
 	const text = textarea.value;
 	const videoId = videoContainer.dataset.id;
+	const textarea = form.querySelector('textarea');
 	if (text === '') {
 		return;
 	}
@@ -19,7 +18,12 @@ const handleSubmit = (event) => {
 	});
 	textarea.value = '';
 };
-
+const handleCommentBtn = (event) => {
+	const commentBtn = form.querySelector('.comment');
+	commentBtn.style.backgroundColor = textarea.value ? '#065fd4' : '#f0f0f0';
+	commentBtn.style.color = textarea.value ? '#def1ff' : '#606060';
+};
 if (form) {
 	form.addEventListener('submit', handleSubmit);
+	textarea.addEventListener('input', handleCommentBtn);
 }

@@ -165,13 +165,6 @@ const handleLikeBtn = () => {
 	fetch(`/api/videos/${id}/rating`, {method: 'POST'});
 	likeBtn.firstChild.style.color = '#065fd4';
 };
-// const handleUnlikeBtn = () => {
-// 	const {id} = videoContainer.dataset;
-// 	fetch(`/api/videos/${id}/rating-unlike`, {method: 'POST'});
-// 	likeBtn.firstChild.style.color = 'black';
-// 	likeBtn.removeEventListener('click', handleUnlikeBtn);
-// 	likeBtn.addEventListener('click', handleLikeBtn);
-// };
 
 window.addEventListener('keydown', handleKeyCode);
 playBtn.addEventListener('click', handlePlay);

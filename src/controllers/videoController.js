@@ -160,18 +160,17 @@ export const giveLikes = async (req, res) => {
 		user: {_id},
 	} = req.session;
 	const video = await Video.findById(id);
-	if (!video) {
-		return res.sendStatus(404);
+	const user = await User.findById(_id);
+	// when user has been already liked
+	if (user.liked.includes(video._id)) {
+		user.liked.splice(user.liked.indexOf(video._id), 1);
+		video.meta.rating -= 1;
+	} else {
+		user.liked.push(video._id);
+		video.meta.rating += 1;
 	}
-
-	// like 버튼을 누를떄 video.like array에 user_id 추가.
-	video.meta.rating += 1;
-	video.likes.push(_id);
-	// 이미 video.like array에 user_id가 있을때
-	//똑같은 id 빼기.
-	//없을때 추가하기.
-	// video.likes.push(_id);
 	await video.save();
+	await user.save();
 	return res.sendStatus(200);
 };
 
