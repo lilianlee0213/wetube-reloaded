@@ -160,10 +160,28 @@ const handleMouseMove = () => {
 const handleMouseLeave = () => {
 	controlsTimeout = setTimeout(hideControls, 3000);
 };
-const handleLikeBtn = () => {
+const handleLike = () => {
+	const rating = document.getElementById('rating');
+	likeBtn.firstChild.classList.toggle('liked');
+	if (likeBtn.firstChild.classList.contains('liked')) {
+		rating.innerText++;
+	} else {
+		rating.innerText--;
+		likeBtn.dataset.id = '';
+	}
+
+	// rating.innerText++;
+};
+
+const handleLikeBtn = async () => {
 	const {id} = videoContainer.dataset;
-	fetch(`/api/videos/${id}/rating`, {method: 'POST'});
-	likeBtn.firstChild.style.color = '#065fd4';
+	const response = await fetch(`/api/videos/${id}/rating`, {
+		method: 'POST',
+	});
+
+	if (response.status === 200) {
+		handleLike();
+	}
 };
 
 window.addEventListener('keydown', handleKeyCode);

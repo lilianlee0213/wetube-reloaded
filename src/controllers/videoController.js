@@ -1,7 +1,6 @@
 import Video from '../models/Video';
 import User from '../models/User';
 import Comment from '../models/Comment';
-import {json} from 'express';
 
 export const home = async (req, res) => {
 	const videos = await Video.find({})
@@ -140,18 +139,40 @@ export const createComment = async (req, res) => {
 	}
 	const comment = await Comment.create({
 		text,
-		creator: user._id,
 		video: id,
-		username: user.username,
-		avatarUrl: user.avatarUrl,
-		lastName: user.lastName,
+		creator: user._id,
+		creatorAvatarUrl: user.avatarUrl,
+		creatorUsername: user.username,
+		creatorLastName: user.lastName,
 	});
-	// const commentUser = await User.findById(user._id);
 	video.comments.push(comment._id);
-	// commentUser.comments.push(comment._id);
-	// commentUser.save();
-	video.save();
-	return res.sendStatus(201);
+	await video.save();
+	return res.status(201).json({
+		commentId: comment._id,
+		commentUser: user._id,
+		commentAvatarUrl: user.avatarUrl,
+		commentUsername: user.username,
+		commentLastName: user.lastName,
+	});
+};
+
+export const deleteComment = async (req, res) => {
+	const {
+		params: {id},
+		body: {commentId},
+	} = req;
+	const video = await Video.findById(id);
+	if (!video) {
+		return res.sendStatus(404);
+	}
+	await Comment.findByIdAndDelete(commentId);
+	video.comments = video.comments.filter((id) => {
+		if (String(id) !== String(commentId)) {
+			return video.comments;
+		}
+	});
+	await video.save();
+	return res.sendStatus(200);
 };
 
 export const giveLikes = async (req, res) => {
@@ -160,6 +181,9 @@ export const giveLikes = async (req, res) => {
 		user: {_id},
 	} = req.session;
 	const video = await Video.findById(id);
+	if (!video) {
+		return res.sendStatus(404);
+	}
 	const user = await User.findById(_id);
 	// when user has been already liked
 	if (user.liked.includes(video._id)) {
@@ -169,6 +193,8 @@ export const giveLikes = async (req, res) => {
 		user.liked.push(video._id);
 		video.meta.rating += 1;
 	}
+	req.session.user = user;
+
 	await video.save();
 	await user.save();
 	return res.sendStatus(200);

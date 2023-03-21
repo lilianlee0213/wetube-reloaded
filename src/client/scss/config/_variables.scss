@@ -8,7 +8,7 @@ $light_blue: #def1ff;
 $white: #ffffff;
 $purple: #7e57c2;
 $box-shadow: 0 1px 3px 0 rgb(238, 238, 238);
-$dropdown-shadow: 1px 0px 19px -5px rgba(158, 158, 158, 1);
+$dropdown-shadow: 0px 4px 32px 0px rgb(230, 226, 226);
 @mixin input-text {
 	input[type='text'] {
 		border-color: #065fd4;

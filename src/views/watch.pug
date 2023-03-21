@@ -45,7 +45,7 @@ block content
                     button#likeBtn
                         i.fa-regular.fa-thumbs-up
                         span |
-                        span=video.meta.rating
+                        span#rating=video.meta.rating 
                     button 
                         i.fa-solid.fa-arrow-up-from-bracket
                         span Share
@@ -84,20 +84,27 @@ block content
                         textarea(placeholder="Add a comment...")
             div.comment-view
                 each comment in video.comments.reverse()
-                    div.comment-view__list
-                        if !comment.avatarUrl
-                            a(href=`/users/${comment._id}`).avatar.no-image
-                                    span=comment.lastName.substring(0,1) 
+                    div.comment-view__list(data-id=comment._id)
+                        if !comment.creatorAvatarUrl
+                            a(href=`/users/${comment.creator}`).avatar.no-image
+                                    span=comment.creatorLastName.substring(0,1) 
                         else
-                            a(href=`/users/${comment._id}`)
-                                img(src=`${comment.avatarUrl}`,crossOrigin).avatar
+                            a(href=`/users/${comment.creator}`)
+                                img(src=`${comment.creatorAvatarUrl}`,crossOrigin).avatar
                         div.comment-view__content
-                            span=comment.username 
-                            span=moment(video.createdAt).fromNow()
+                            span=comment.creatorUsername
+                            span=moment(comment.createdAt).fromNow()
                             p=comment.text
-                            span 
-                                i.fa-regular.fa-thumbs-up
+                            i.fa-regular.fa-thumbs-up
                             span=video.meta.rating
+                        if loggedIn    
+                            if String(loggedInUser._id) === String(comment.creator) 
+                                div.option-modal(data-id=comment._id)  
+                                    button.option-modal__btn
+                                        i.fa.fa-ellipsis-v
+                                    div.option-box
+                                        button.edit-btn Edit
+                                        button.delete-btn Delete
 
         div.moreVideos-container
             each video in videos

@@ -97,6 +97,11 @@
 			i {
 				font-size: 16px;
 			}
+			.fa-regular.fa-thumbs-up {
+				&.liked {
+					color: $blue;
+				}
+			}
 		}
 	}
 	.video-meta {
@@ -179,6 +184,7 @@
 	}
 	.comment-view {
 		.comment-view__list {
+			position: relative;
 			display: flex;
 			gap: 20px;
 			&:not(:last-child) {
@@ -207,6 +213,64 @@
 				p {
 					font-size: 16px;
 					margin-bottom: 10px;
+				}
+			}
+			.option-modal {
+				.option-modal__btn,
+				.option-box {
+					position: absolute;
+				}
+				.option-modal__btn {
+					opacity: 0;
+					top: 0;
+					bottom: 0;
+					margin: auto 0;
+					right: 0;
+					width: 35px;
+					aspect-ratio: 1;
+					border-radius: 50%;
+					&:hover,
+					&:focus,
+					&:active {
+						background-color: $grey;
+						opacity: 1;
+						background-color: transparent;
+					}
+
+					i {
+						width: 100%;
+					}
+				}
+				.option-box {
+					display: none;
+					width: 110px;
+					padding: 8px 0;
+					right: 50px;
+					box-shadow: $dropdown-shadow;
+					border-radius: 12px;
+					text-align: center;
+					font-size: 12px;
+					&.active {
+						display: block;
+					}
+					button {
+						width: 100%;
+						padding: 8px;
+						&:hover,
+						&:focus,
+						&:active {
+							background-color: $light_grey;
+						}
+					}
+					.edit-btn {
+						margin-bottom: 8px;
+					}
+				}
+			}
+			&:hover,
+			&:focus {
+				.option-modal__btn {
+					opacity: 1;
 				}
 			}
 		}
