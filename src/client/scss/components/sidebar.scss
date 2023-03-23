@@ -1,12 +1,11 @@
 .sidebar {
 	width: 100px;
 	height: 100vh;
-	padding-left: 6px;
+	padding-left: 8px;
 	background-color: $white;
 	.sidebar-links {
 		li {
 			text-align: center;
-			width: 78px;
 			.active {
 				background-color: $light_grey;
 				border-radius: 14px;

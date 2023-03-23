@@ -168,10 +168,10 @@ export const deleteComment = async (req, res) => {
 	await Comment.findByIdAndDelete(commentId);
 	video.comments = video.comments.filter((id) => {
 		if (String(id) !== String(commentId)) {
-			return video.comments;
+			return id;
 		}
 	});
-	await video.save();
+	video.save();
 	return res.sendStatus(200);
 };
 
@@ -185,19 +185,22 @@ export const giveLikes = async (req, res) => {
 		return res.sendStatus(404);
 	}
 	const user = await User.findById(_id);
+	let isLiked = false;
 	// when user has been already liked
 	if (user.liked.includes(video._id)) {
 		user.liked.splice(user.liked.indexOf(video._id), 1);
 		video.meta.rating -= 1;
+		isLiked = false;
 	} else {
 		user.liked.push(video._id);
 		video.meta.rating += 1;
+		isLiked = true;
 	}
 	req.session.user = user;
 
 	await video.save();
 	await user.save();
-	return res.sendStatus(200);
+	return res.status(200).json({isLiked});
 };
 
 // lilian -> loggedinSession._id = 641483c331fd21d3f93a0290

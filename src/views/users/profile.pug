@@ -1,10 +1,76 @@
 extends ../base
 include ../mixins/video
 
-block content 
-    h4=`${user.username}'s videos`
-    //- each video is coming from the owner
-    each video in user.videos 
-        +video(video) 
-    else 
-        li Sorry nothing found
+block content
+    div.profile__container
+        div.user-profile__container.flex-r.flex-sb.r-center
+            div.user-profile.flex-r.flex-cc.r-center
+                    if !user.avatarUrl
+                        a(href=`/users/${user._id}`).avatar.no-image
+                            span=user.lastName.substring(0,1) 
+                    else
+                        a(href=`/users/${user._id}`)   
+                            img(src=`${user.avatarUrl}`,crossOrigin).avatar
+                    div.user-profile__info
+                        a(href=`/users/${user._id}`) @#{user.username}
+                        small 123K subscribers
+            div 
+                if loggedIn
+                    if String(loggedInUser._id) === String(user._id)
+                        a(href="/users/edit").userEdit-btn Edit Profile
+                    else            
+                        button.subscribe-btn Subscribe
+        div.menu.hr
+            button.menu-home.active HOME 
+            button.menu-videos VIDEOS 
+        div.recentVideo.flex-r.hr
+            div#videoContainer.video-container(data-id=recentVideo._id)
+                div.video
+                    video(src="/" + recentVideo.fileUrl, autoplay)#video
+                div#videoControls.video__controls
+                    div.video__controls__timeline
+                        input(type="range", step='1', value=0, min='0')#timeline
+                    div.video__controls__buttons    
+                        div
+                            span#play
+                                i.fa-solid.fa-pause
+                            span#forward 
+                                i.fas.fa-step-forward
+                            span#mute
+                                i.fas.fa-volume-up
+                            div
+                                input(type='range', step="0.1", value=0.5, min='0', max='1')#volume 
+                            div.video__controls__time
+                                span#currentTime 00:00
+                                span  / 
+                                span#totalTime 00:00
+                        div
+                            span#fullScreen 
+                                i.fas.fa-expand
+
+            div.recentVideo-content
+                h1=recentVideo.title
+                div
+                    span #{recentVideo.meta.views} views
+                    span •
+                    span=moment(recentVideo.createdAt).fromNow()
+                p=recentVideo.description
+                              
+                    //- div..recentVideo-content
+                    //-     a(href=`/videos/${video.id}`).video-mixin__title=video.title
+                    //-     a(href=`/users/${video.creator.id}`).video-mixin__username=video.creator.username  
+                    //-     div.video-mixin__meta 
+                    //-         span #{video.meta.views} views
+                    //-         span=moment(video.createdAt).fromNow()
+
+                
+        div.user-videos
+            h1 Videos
+            div.user-videos__mixin
+                each video in user.videos 
+                    +video(video)
+                else 
+                    li Sorry nothing found
+block scripts
+    script(src="/static/js/videoPlayer.js")
+    script(src="/static/js/profile.js")

@@ -5,41 +5,6 @@
 
 // Components
 @import './components/header.scss';
-.signin-btn {
-	// width: ;
-	padding-inline: 20px;
-	border: 1px solid $light_grey;
-	border-radius: 40px;
-	box-shadow: $box-shadow;
-	font-size: 15px;
-	line-height: 38px;
-	color: $blue;
-
-	&:hover {
-		background-color: $light_blue;
-		& i {
-			background-color: $light_blue;
-		}
-	}
-	span {
-		margin-left: 10px;
-		letter-spacing: 0.2px;
-	}
-}
-.avatar {
-	height: 45px;
-	border-radius: 50%;
-	aspect-ratio: 1;
-	&.no-image {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-color: $purple;
-		color: $white;
-		font-size: 22px;
-		text-transform: uppercase;
-	}
-}
 @import './components/video.scss';
 @import './components/sidebar.scss';
 @import './components/form.scss';
@@ -48,6 +13,8 @@
 // Screens
 @import './screens/home.scss';
 @import './screens//watch.scss';
+@import './screens/profile.scss';
+@import './screens/edit-profile.scss';
 
 // Defaults
 * {
@@ -80,6 +47,8 @@ body {
 		height: 100%;
 	}
 }
+// universial
+
 @keyframes goAway {
 	0% {
 		opacity: 1;
@@ -101,5 +70,87 @@ body {
 	&.error {
 		border: 1px solid $red;
 		opacity: 0;
+	}
+}
+.flex-r {
+	display: flex;
+	flex-direction: row;
+}
+.flex-c {
+	display: flex;
+	flex-direction: column;
+}
+.r-center {
+	align-items: center;
+}
+.center {
+	justify-content: center;
+	align-items: center;
+}
+.flex-sb {
+	justify-content: space-between;
+}
+.hr {
+	border-bottom: 1px solid $grey;
+}
+.avatar {
+	height: 45px;
+	border-radius: 50%;
+	aspect-ratio: 1;
+	&.no-image {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: $purple;
+		color: $white;
+		font-size: 22px;
+		text-transform: uppercase;
+	}
+}
+.signin-btn {
+	// width: ;
+	padding-inline: 20px;
+	border: 1px solid $light_grey;
+	border-radius: 40px;
+	box-shadow: $box-shadow;
+	font-size: 15px;
+	line-height: 38px;
+	color: $blue;
+
+	&:hover {
+		background-color: $light_blue;
+		& i {
+			background-color: $light_blue;
+		}
+	}
+	span {
+		margin-left: 10px;
+		letter-spacing: 0.2px;
+	}
+}
+.subscribe-btn,
+.userEdit-btn,
+.userDelete-btn {
+	padding: 10px 20px;
+	border-radius: 18px;
+	font-size: 14px;
+	font-weight: 500;
+	color: $white;
+}
+.subscribe-btn {
+	background-color: $black;
+	&:hover,
+	&:focus {
+		opacity: 0.9;
+	}
+}
+
+.userEdit-btn,
+.userDelete-btn {
+	background-color: $blue;
+	opacity: 0.9;
+	&:hover,
+	&:focus {
+		opacity: 1;
 	}
 }

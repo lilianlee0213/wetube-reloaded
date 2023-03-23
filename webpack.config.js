@@ -5,10 +5,11 @@ const BASE_JS = './src/client/js/';
 module.exports = {
 	entry: {
 		main: BASE_JS + 'main.js',
-		videoPlayer: BASE_JS + 'videoPlayer.js',
 		recorder: BASE_JS + 'recorder.js',
+		videoPlayer: BASE_JS + 'videoPlayer.js',
 		watchVideo: BASE_JS + 'watchVideo.js',
 		commentSection: BASE_JS + 'commentSection.js',
+		profile: BASE_JS + 'profile.js',
 	},
 	mode: 'development',
 	watch: true,

@@ -1,0 +1,35 @@
+extends ../base
+
+block content
+    div.edit__container
+        form(method="POST" enctype="multipart/form-data")
+            div.edit-form__header.hr
+                h1 Edit Profile
+                div.edit-form__buttons.flex-r
+                    a(href=`/users/${loggedInUser._id}`) ViEW PROFILE
+                    button.cancel-btn CANCEL
+                    button(type="submit", value="Update Profile").update-btn UPDATE
+            div.edit-form__content
+                div.edit-form__avatar.flex-c.center
+                    if !loggedInUser.avatarUrl
+                        div.avatar.no-image
+                            span=loggedInUser.lastName.substring(0,1) 
+                        input(type="file",id="avatar", name="avatar", accept="image/*").avatar-input
+                        div.avatar-overlay.flex-c.center
+                    else
+                        div.avatar.flex-r.center
+                            img(src=loggedInUser.socialOnly? `${loggedInUser.avatarUrl}` : "/" + loggedInUser.avatarUrl).avatar
+                        input(type="file",id="avatar", name="avatar", accept="image/*").avatar-input
+                        div.avatar-overlay.flex-c.center
+                label(for="avatar") Avatar 
+                //- input(type="file",id="avatar", name="avatar", accept="image/*")
+                input(placeholder="First Name", name="firstName", type="text", required, value=loggedInUser.firstName) 
+                input(placeholder="Last Name", name="lastName", type="text", required. value=loggedInUser.lastName) 
+                input(placeholder="Username", name="username", type="text", required, value=loggedInUser.username) 
+                input(placeholder="Email", name="email", type="email", required, value=loggedInUser.email) 
+                input(placeholder="Location", name="location", type="text", required, value=loggedInUser.location) 
+            
+            if !loggedInUser.socialOnly
+                hr
+                a(href="change-password") Change Password &rarr;
+

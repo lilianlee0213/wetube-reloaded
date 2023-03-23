@@ -37,11 +37,41 @@ block content
                 div.video-creator__info   
                     a(href=`/users/${video.creator._id}`)=video.creator.username
                     small 123K subscribers
-                button.subscribe-btn Subscribe
+                if loggedIn    
+                    if String(loggedInUser._id) === String(video.creator._id)
+                        a(href=`${video.id}/edit`).userEdit-btn Edit video
+                        br
+                        a(href=`${video.id}/delete`).userDelete-btn Delete video
+                    else
+                        button.subscribe-btn Subscribe
+                else   
+                    button(data-button="subscribe").subscribe-btn Subscribe
+                    div.login-modal
+                        h3 Want to subscribe to this channel?
+                        p Sign in to subscribe to this channel.
+                        a(href="/join") Sign in
+                    
             div.video-buttons
                 if !loggedIn
-                    button
-                else     
+                    button(data-button="like")
+                        i.fa-regular.fa-thumbs-up
+                        span |
+                        span=video.meta.rating
+                         
+                    button(data-button="share")
+                        i.fa-solid.fa-arrow-up-from-bracket
+                        span Share
+                    button(data-button="save")
+                        i.fa-solid.fa-bookmark
+                        span Save  
+                    button(data-button="more").more
+                         i.fa-solid.fa-ellipsis
+                    div.login-modal
+                        h3 Like this video?
+                        p Sign in to make your opinion count.
+                        a(href="/join") Sign in
+
+                else
                     button#likeBtn
                         i.fa-regular.fa-thumbs-up
                         span |
@@ -55,7 +85,7 @@ block content
                     button
                         i.fa-solid.fa-bookmark
                         span Save  
-                    button
+                    button.more
                         i.fa-solid.fa-ellipsis
             div.video-meta 
                 strong.video-meta__views #{video.meta.views} views
@@ -84,7 +114,7 @@ block content
                         textarea(placeholder="Add a comment...")
             div.comment-view
                 each comment in video.comments.reverse()
-                    div.comment-view__list(data-id=comment._id)
+                    div.comment-view__list
                         if !comment.creatorAvatarUrl
                             a(href=`/users/${comment.creator}`).avatar.no-image
                                     span=comment.creatorLastName.substring(0,1) 
@@ -124,12 +154,9 @@ block content
         //- div 
         //-     small Uploaded by 
         //-         a(href=`/users/${video.creator._id}`)=video.creator.username
-        if loggedInUser
-            if String(video.creator._id) === String(loggedInUser._id)
-                a(href=`${video.id}/edit`) Edit Video &rarr; 
-                br
-                a(href=`${video.id}/delete`) Delete Video &rarr; 
+               
 block scripts
     script(src="/static/js/videoPlayer.js")
+    script(src="/static/js/watchVideo.js")
     script(src="/static/js/commentSection.js")
         

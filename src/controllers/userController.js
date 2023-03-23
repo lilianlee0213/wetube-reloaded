@@ -145,7 +145,7 @@ export const logout = (req, res) => {
 	return res.redirect('/');
 };
 export const getEdit = (req, res) => {
-	return res.render('edit-profile', {pageTitle: 'Edit Profile'});
+	return res.render('users/edit-profile', {pageTitle: 'Edit Profile'});
 };
 export const postEdit = async (req, res) => {
 	const {
@@ -222,5 +222,6 @@ export const see = async (req, res) => {
 	return res.render('users/profile', {
 		pageTitle: `${user.username}'s Profile`,
 		user,
+		recentVideo: user.videos[user.videos.length - 1],
 	});
 };

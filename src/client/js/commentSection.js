@@ -1,31 +1,12 @@
 const videoContainer = document.getElementById('videoContainer');
 const form = document.getElementById('commentForm');
-const comments = document.querySelectorAll('.comment-view__list');
-
-comments.forEach((comment) => {
-	const modalBtn = comment.querySelector('.option-modal__btn');
-	const optionBox = comment.querySelector('.option-box');
-	if (modalBtn) {
-		modalBtn.addEventListener('click', function (e) {
-			e.target.parentElement.classList.toggle('active');
-			optionBox.classList.toggle('active');
-		});
-	}
-});
+const modalBtns = document.querySelectorAll('.option-modal__btn i');
 
 const handleCommentBtn = (event) => {
 	const commentBtn = form.querySelector('.comment');
 	commentBtn.style.backgroundColor = textarea.value ? '#065fd4' : '#f0f0f0';
 	commentBtn.style.color = textarea.value ? '#def1ff' : '#606060';
 };
-// const modalBtn = document.querySelectorAll('.option-modal__btn i');
-// const showModal = (e) => {
-// 	e.target.parentElement.classList.toggle('acitve');
-// 	e.target.parentElement.nextSibling.classList.toggle('active');
-// 	if()
-// 	const commentId = e.target.parentElement.parentElement.dataset.id;
-// };
-// modalBtn.forEach((btn) => btn.addEventListener('click', showModal));
 
 const addComment = (text, id, commentUser, avatar, username, lastname) => {
 	const commentContainer = document.querySelector('.comment-view');
@@ -90,15 +71,29 @@ const addComment = (text, id, commentUser, avatar, username, lastname) => {
 	modalBtn.appendChild(modalIcon);
 	optionBox.appendChild(editBtn);
 	optionBox.appendChild(deleteBtn);
-
-	modalBtn.addEventListener('click', function (e) {
+	modalIcon.addEventListener('click', (e) => {
+		modalBtn.classList.toggle('active');
 		optionBox.classList.toggle('active');
+		if (modalBtn.classList.contains('active')) {
+			e.target.style.backgroundColor = '$c6c6c6';
+		}
 	});
 	deleteBtn.addEventListener('click', handleDeleteComment);
 };
-const handleToggle = (item) => {
-	item.classList.toggle('active');
+const handleToggle = (event) => {
+	const toggleBtn = event.target.parentElement;
+
+	modalBtns.forEach((btn) => {
+		if (toggleBtn !== btn.parentElement) {
+			btn.parentElement.classList.remove('active');
+			btn.parentElement.nextElementSibling.classList.remove('active');
+		} else {
+			toggleBtn.classList.toggle('active');
+			toggleBtn.nextElementSibling.classList.toggle('active');
+		}
+	});
 };
+
 const handleSubmit = async (event) => {
 	event.preventDefault();
 	const textarea = form.querySelector('textarea');
@@ -157,4 +152,9 @@ if (deleteBtn) {
 	deleteBtn.forEach((btn) =>
 		btn.addEventListener('click', handleDeleteComment)
 	);
+}
+if (modalBtns) {
+	modalBtns.forEach((btn) => {
+		btn.addEventListener('click', handleToggle);
+	});
 }

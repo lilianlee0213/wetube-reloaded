@@ -11,7 +11,6 @@ const fullScreenBtn = document.getElementById('fullScreen');
 const fullScreenIcon = fullScreenBtn.querySelector('i');
 const videoContainer = document.getElementById('videoContainer');
 const videoControls = document.getElementById('videoControls');
-const likeBtn = document.getElementById('likeBtn');
 
 // let isFocused = false;
 let videoStatus = false;
@@ -160,29 +159,6 @@ const handleMouseMove = () => {
 const handleMouseLeave = () => {
 	controlsTimeout = setTimeout(hideControls, 3000);
 };
-const handleLike = () => {
-	const rating = document.getElementById('rating');
-	likeBtn.firstChild.classList.toggle('liked');
-	if (likeBtn.firstChild.classList.contains('liked')) {
-		rating.innerText++;
-	} else {
-		rating.innerText--;
-		likeBtn.dataset.id = '';
-	}
-
-	// rating.innerText++;
-};
-
-const handleLikeBtn = async () => {
-	const {id} = videoContainer.dataset;
-	const response = await fetch(`/api/videos/${id}/rating`, {
-		method: 'POST',
-	});
-
-	if (response.status === 200) {
-		handleLike();
-	}
-};
 
 window.addEventListener('keydown', handleKeyCode);
 playBtn.addEventListener('click', handlePlay);
@@ -203,4 +179,3 @@ videoContainer.addEventListener('mouseleave', handleMouseLeave);
 video.readyState
 	? handleLoadedMetaData()
 	: video.addEventListener('loadedmetadata', handleLoadedMetaData);
-likeBtn.addEventListener('click', handleLikeBtn);

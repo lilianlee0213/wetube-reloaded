@@ -1,0 +1,81 @@
+.edit__container {
+	width: 100%;
+	padding: 60px 20px;
+	.edit-form__header {
+		padding: 0 30px;
+		h1 {
+			font-size: 25px;
+			margin-bottom: 30px;
+		}
+		.edit-form__buttons {
+			justify-content: end;
+			margin-bottom: 10px;
+			font-size: 14px;
+			font-weight: 500;
+			* {
+				padding: 8px 16px;
+			}
+			a {
+				color: $blue;
+			}
+			.cancel-btn {
+				color: $font_grey;
+				&.active {
+					color: $blue;
+				}
+			}
+			.update-btn {
+				color: $white;
+				background-color: $grey;
+				&.active {
+					background-color: $blue;
+				}
+			}
+		}
+	}
+	.edit-form__content {
+		.edit-form__avatar {
+			position: relative;
+			.avatar {
+				width: 200px;
+				height: 200px;
+				&.no-image {
+					font-size: 100px;
+				}
+				img {
+					width: 200px;
+					height: 200px;
+				}
+				&::after {
+					position: absolute;
+					content: '\f31c';
+					font-weight: 900;
+					font-family: 'Font Awesome 6 Free';
+					font-size: 40px;
+					color: $grey;
+					z-index: 1;
+					opacity: 0.8;
+				}
+			}
+
+			.avatar-overlay {
+				position: absolute;
+				border: none;
+				width: 200px;
+				height: 200px;
+				border-radius: 50%;
+				background-color: $black;
+				opacity: 0.5;
+			}
+			.avatar-input {
+				cursor: pointer;
+				position: absolute;
+				border: none;
+				width: 200px;
+				height: 200px;
+				opacity: 0;
+				z-index: 2;
+			}
+		}
+	}
+}
