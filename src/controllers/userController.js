@@ -148,6 +148,7 @@ export const getEdit = (req, res) => {
 	return res.render('users/edit-profile', {pageTitle: 'Edit Profile'});
 };
 export const postEdit = async (req, res) => {
+	const pageTitle = 'Edit Profile';
 	const {
 		session: {
 			user: {_id, avatarUrl},
@@ -155,6 +156,24 @@ export const postEdit = async (req, res) => {
 		body: {firstName, lastName, username, email, location},
 		file,
 	} = req;
+
+	let search = [];
+	if (req.session.user.email !== email) {
+		search.push({email});
+	}
+	if (req.session.user.username !== username) {
+		search.push({username});
+	}
+	if (search.length > 0) {
+		const existUser = await User.findOne({$or: search});
+		if (existUser && existUser._id.toString() !== _id) {
+			console.log(existUser);
+			return res.status(404).render('users/edit-profile', {
+				pageTitle,
+				errorMessage: 'This username/email is already taken.',
+			});
+		}
+	}
 
 	const updatedUser = await User.findByIdAndUpdate(
 		_id,
@@ -169,7 +188,7 @@ export const postEdit = async (req, res) => {
 		{new: true}
 	);
 	req.session.user = updatedUser;
-	return res.redirect('/');
+	return res.redirect('/users/edit');
 };
 export const getChangePassword = (req, res) => {
 	// only allowed when socialOnly=false
@@ -216,6 +235,7 @@ export const see = async (req, res) => {
 			model: 'User',
 		},
 	});
+
 	if (!user) {
 		return res.status(404).render('404', {pageTitle: 'User not found'});
 	}

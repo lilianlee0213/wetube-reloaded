@@ -1,9 +1,10 @@
 .sidebar {
 	width: 100px;
 	height: 100vh;
-	padding-left: 8px;
+	padding-left: 6px;
 	background-color: $white;
 	.sidebar-links {
+		padding-top: 10px;
 		li {
 			text-align: center;
 			.active {
@@ -12,11 +13,11 @@
 				font-weight: 700;
 			}
 			&:hover {
-				border-radius: 14px;
+				border-radius: 8px;
 				background-color: $light_grey;
 			}
 			a {
-				padding: 25px 0 25px 0;
+				padding: 24px 5px;
 				i {
 					margin-bottom: 12px;
 					font-size: 22px;
@@ -37,10 +38,15 @@
 .sidebar-toggle {
 	width: 240px;
 	padding: 0;
+	box-shadow: $dropdown-shadow;
 	.sidebar-links {
+		padding: 0 14px;
 		div {
 			border-bottom: 1.5px solid $grey;
 			padding: 8px 0;
+			li {
+				margin: 0 6px;
+			}
 		}
 		.sidebar-links__hidden {
 			display: block;

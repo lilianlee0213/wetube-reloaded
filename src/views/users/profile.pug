@@ -47,7 +47,6 @@ block content
                         div
                             span#fullScreen 
                                 i.fas.fa-expand
-
             div.recentVideo-content
                 h1=recentVideo.title
                 div
@@ -55,15 +54,6 @@ block content
                     span •
                     span=moment(recentVideo.createdAt).fromNow()
                 p=recentVideo.description
-                              
-                    //- div..recentVideo-content
-                    //-     a(href=`/videos/${video.id}`).video-mixin__title=video.title
-                    //-     a(href=`/users/${video.creator.id}`).video-mixin__username=video.creator.username  
-                    //-     div.video-mixin__meta 
-                    //-         span #{video.meta.views} views
-                    //-         span=moment(video.createdAt).fromNow()
-
-                
         div.user-videos
             h1 Videos
             div.user-videos__mixin

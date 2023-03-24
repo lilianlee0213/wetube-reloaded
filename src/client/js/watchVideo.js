@@ -2,33 +2,34 @@ const videoContainer = document.getElementById('videoContainer');
 const creatorContainer = document.querySelector('.video-creator');
 const buttonContainer = document.querySelector('.video-buttons');
 const likeBtn = document.getElementById('likeBtn');
+let liked = false;
 
 window.addEventListener('click', function (e) {
-	const modal = creatorContainer.querySelector('.login-modal');
-	if (e.target.dataset.button === 'subscribe') {
-		modal.classList.toggle('active');
-	} else {
-		modal.classList.remove('active');
-	}
-});
-const handleLoginModal = (e) => {
-	let button = e.target.dataset.button;
+	const subscribeModal = creatorContainer.querySelector('.login-modal');
 	const modal = buttonContainer.querySelector('.login-modal');
+	const buttons = buttonContainer.querySelectorAll('button');
 	const title = modal.querySelector('h3');
 	const content = modal.querySelector('p');
-	const buttons = buttonContainer.querySelectorAll('button');
+	let button = e.target.dataset.button;
+
+	button === 'subscribe'
+		? subscribeModal.classList.toggle('subscribe')
+		: subscribeModal.classList.remove('subscribe');
+
 	if (button === undefined) {
 		button = e.target.parentElement.dataset.button;
 	}
 
+	buttons.forEach((btn) => {
+		if (btn.dataset.button !== button) {
+			modal.classList.remove(btn.dataset.button);
+		}
+	});
 	if (button === 'like') {
 		modal.classList.toggle('like');
 		title.innerText = 'Like this video?';
 		content.innerText = 'Sign in to make your opinion count.';
 	}
-	// if (button === 'share') {
-	// 	modal.classList.toggle('share');
-	// }
 	if (button === 'save') {
 		modal.classList.toggle('save');
 		title.innerText = 'Want to watch this agian later?';
@@ -39,15 +40,7 @@ const handleLoginModal = (e) => {
 		title.innerText = 'Need to report the video?';
 		content.innerText = 'Sign in to report inappropriate content.';
 	}
-
-	buttons.forEach((btn) => {
-		if (btn.dataset.button !== button) {
-			modal.classList.remove(btn.dataset.button);
-		}
-	});
-};
-buttonContainer.addEventListener('click', handleLoginModal);
-let liked = false;
+});
 
 const handleLikeBtn = (isLiked) => {
 	const rating = document.getElementById('rating');

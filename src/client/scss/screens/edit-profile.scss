@@ -1,8 +1,11 @@
 .edit__container {
-	width: 100%;
-	padding: 60px 20px;
+	// width: 100%;
+	padding: 40px 0px;
+	width: 70%;
+	margin: 0 auto;
 	.edit-form__header {
 		padding: 0 30px;
+		margin-bottom: 40px;
 		h1 {
 			font-size: 25px;
 			margin-bottom: 30px;
@@ -13,7 +16,8 @@
 			font-size: 14px;
 			font-weight: 500;
 			* {
-				padding: 8px 16px;
+				padding: 0 20px;
+				line-height: 2.5rem;
 			}
 			a {
 				color: $blue;
@@ -27,15 +31,32 @@
 			.update-btn {
 				color: $white;
 				background-color: $grey;
-				&.active {
+				&.active,
+				&:hover {
 					background-color: $blue;
 				}
 			}
 		}
 	}
 	.edit-form__content {
+		max-width: 700px;
+		margin: 0 auto;
 		.edit-form__avatar {
 			position: relative;
+			margin-bottom: 40px;
+			.avatar-after {
+				&::after {
+					position: absolute;
+					content: '\f030';
+					font-weight: 900;
+					font-family: 'Font Awesome 6 Free';
+					font-size: 40px;
+					color: $grey;
+					z-index: 1;
+					opacity: 1;
+					cursor: pointer;
+				}
+			}
 			.avatar {
 				width: 200px;
 				height: 200px;
@@ -46,26 +67,6 @@
 					width: 200px;
 					height: 200px;
 				}
-				&::after {
-					position: absolute;
-					content: '\f31c';
-					font-weight: 900;
-					font-family: 'Font Awesome 6 Free';
-					font-size: 40px;
-					color: $grey;
-					z-index: 1;
-					opacity: 0.8;
-				}
-			}
-
-			.avatar-overlay {
-				position: absolute;
-				border: none;
-				width: 200px;
-				height: 200px;
-				border-radius: 50%;
-				background-color: $black;
-				opacity: 0.5;
 			}
 			.avatar-input {
 				cursor: pointer;
@@ -75,7 +76,76 @@
 				height: 200px;
 				opacity: 0;
 				z-index: 2;
+				&:hover + .avatar-label {
+					display: block;
+				}
 			}
+			.avatar-label {
+				display: none;
+				position: absolute;
+				bottom: 50px;
+				margin: 0 auto;
+				padding: 6px 8px;
+				border-radius: 6px;
+				font-size: 12px;
+				color: $white;
+				background-color: $font_grey;
+				opacity: 0.9;
+				z-index: 100;
+				cursor: pointer;
+			}
+			.avatar-overlay {
+				position: absolute;
+				border: none;
+				width: 200px;
+				height: 200px;
+				border-radius: 50%;
+				background-color: $black;
+				opacity: 0.5;
+			}
+		}
+		.errorMessage {
+			display: block;
+			// max-width: 600px;
+			margin-bottom: 30px;
+			color: $red;
+		}
+		.edit-form__input {
+			margin: 0 auto 20px;
+			label {
+				font-weight: 500;
+				font-family: 'Roboto', sans-serif;
+				margin-bottom: 10px;
+				&.active {
+					color: $blue;
+				}
+			}
+
+			input {
+				padding: 18px 12px;
+				border-radius: 8px;
+				font-size: 16px;
+				margin-bottom: 20px;
+				&::placeholder {
+					color: $grey;
+				}
+				&:hover {
+					border: 1px solid $font-grey;
+				}
+				&:focus {
+					border: 1.5px solid $blue;
+				}
+			}
+			.grid {
+				grid-template-columns: repeat(2, 1fr);
+				gap: 20px;
+			}
+		}
+		.password-btn {
+			text-align: right;
+			font-size: 14px;
+			font-weight: 500;
+			color: $blue;
 		}
 	}
 }
