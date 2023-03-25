@@ -1,18 +1,15 @@
 .edit__container {
-	// width: 100%;
 	padding: 40px 0px;
 	width: 70%;
 	margin: 0 auto;
 	.edit-form__header {
-		padding: 0 30px;
+		padding: 0 30px 10px;
 		margin-bottom: 40px;
 		h1 {
 			font-size: 25px;
-			margin-bottom: 30px;
 		}
 		.edit-form__buttons {
 			justify-content: end;
-			margin-bottom: 10px;
 			font-size: 14px;
 			font-weight: 500;
 			* {
@@ -121,7 +118,8 @@
 				}
 			}
 
-			input {
+			input,
+			textarea {
 				padding: 18px 12px;
 				border-radius: 8px;
 				font-size: 16px;

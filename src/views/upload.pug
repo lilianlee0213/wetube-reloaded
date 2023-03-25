@@ -11,8 +11,9 @@ block content
         input(type="file", accept="video/*", required, id="video", name="video")
         label(for="thumb") Thumbnail File
         input(type="file", accept="image/*", required, id="thumb", name="thumb")
-        input(placeholder="Title", required, type="text", name="title", maxlength=80) 
-        input(placeholder="Description", required,  type="text", minlength=20, name="description") 
+        input(placeholder="Title", required, type="text", name="title", maxlength=80)
+        textarea(name="description", cols="30", rows="10" placeholder="Tell viewers about your video", required, minlength=10)=video.description  
+        //- input(placeholder="Description", required,  type="text", minlength=20, name="description") 
         input(placeholder="Hashtags, separated by comma.", required, type="text", name="hashtags") 
         input(type="submit", value="Upload Video")
 

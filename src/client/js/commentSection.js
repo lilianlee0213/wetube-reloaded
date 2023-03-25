@@ -1,8 +1,14 @@
 const videoContainer = document.getElementById('videoContainer');
 const form = document.getElementById('commentForm');
+const cancelBtn = form.querySelector('.cancel');
 const modalBtns = document.querySelectorAll('.option-modal__btn i');
+const deleteBtn = document.querySelectorAll('.delete-btn');
 
-const handleCommentBtn = (event) => {
+const handleCancelBtn = (e) => {
+	const comment = document.querySelector('textarea');
+	comment.value = '';
+};
+const handleCommentBtn = () => {
 	const commentBtn = form.querySelector('.comment');
 	commentBtn.style.backgroundColor = textarea.value ? '#065fd4' : '#f0f0f0';
 	commentBtn.style.color = textarea.value ? '#def1ff' : '#606060';
@@ -128,7 +134,6 @@ const handleSubmit = async (event) => {
 		);
 	}
 };
-const deleteBtn = document.querySelectorAll('.delete-btn');
 
 const handleDeleteComment = (event) => {
 	const videoId = videoContainer.dataset.id;
@@ -147,14 +152,17 @@ if (form) {
 	form.addEventListener('submit', handleSubmit);
 	textarea.addEventListener('input', handleCommentBtn);
 }
-
-if (deleteBtn) {
-	deleteBtn.forEach((btn) =>
-		btn.addEventListener('click', handleDeleteComment)
-	);
+if (cancelBtn) {
+	cancelBtn.addEventListener('click', handleCancelBtn);
 }
+
 if (modalBtns) {
 	modalBtns.forEach((btn) => {
 		btn.addEventListener('click', handleToggle);
 	});
+}
+if (deleteBtn) {
+	deleteBtn.forEach((btn) =>
+		btn.addEventListener('click', handleDeleteComment)
+	);
 }

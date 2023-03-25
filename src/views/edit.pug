@@ -1,9 +1,27 @@
 extends base
 
-block content 
-    h4 Update Video
-    form(method="POST")
-        input(placeholder="Title", required, type="text", name="title", maxlength=80, value=video.title) 
-        input(placeholder="Description", required,  type="text", minlength=20, name="description", value=video.description) 
-        input(placeholder="Hashtags, separated by comma.", required, type="text", name="hashtags", value=video.hashtags.join()) 
-        input(type="submit", value="Upload Video")
+block content
+    div.edit__container
+        form(method="POST" enctype="multipart/form-data")
+            div.edit-form__header.flex-r.flex-sb.r-center.hr
+                h1 Video details
+                div.edit-form__buttons.flex-r
+                    button(type="button").cancel-btn UNDO CHANGES
+                    button(type="submit", value="Upload Video").update-btn SAVE
+            div.edit-form__content
+                div.edit-form__input.flex-c
+                    div.flex-c
+                        label(for="title") Title
+                        input(placeholder="Title", required, type="text", name="title", maxlength=80, value=video.title).edit-video__title 
+                    div.flex-c
+                        label(for='description') Description
+                        textarea(name="description", cols="30", rows="10" placeholder="Tell viewers about your video", required, minlength=10)=video.description 
+                        //- input(placeholder="Tell viewers about your video", required,  type="text", minlength=20, name="description", value=video.description).edit-video__desc 
+                    div.flex-c
+                        label(for="hashtags") Hashtags
+                        input(placeholder="Hashtags, separated by comma.", required, type="text", name="hashtags", value=video.hashtags.join())
+                    div.flex-c
+                        label(for="thumb") Thumbnail
+                        input(type="file", accept="image/*", id="thumb", name="thumb")                       
+block scripts
+    script(src="/static/js/edit.js")

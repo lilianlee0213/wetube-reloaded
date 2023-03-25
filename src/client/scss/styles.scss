@@ -29,7 +29,8 @@ body {
 		text-decoration: none;
 		display: block;
 	}
-	input {
+	input,
+	textarea {
 		font-family: 'Roboto', sans-serif;
 		// box-shadow: $box-shadow;
 		// &:focus {
@@ -133,7 +134,7 @@ body {
 	}
 }
 .subscribe-btn,
-.userEdit-btn,
+.blue-btn,
 .userDelete-btn {
 	padding: 10px 20px;
 	border-radius: 18px;
@@ -149,7 +150,7 @@ body {
 	}
 }
 
-.userEdit-btn,
+.blue-btn,
 .userDelete-btn {
 	background-color: $blue;
 	opacity: 0.9;
@@ -157,4 +158,8 @@ body {
 	&:focus {
 		opacity: 1;
 	}
+}
+
+.accent {
+	color: $blue;
 }

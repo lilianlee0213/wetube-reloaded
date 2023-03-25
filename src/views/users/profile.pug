@@ -17,50 +17,65 @@ block content
             div 
                 if loggedIn
                     if String(loggedInUser._id) === String(user._id)
-                        a(href="/users/edit").userEdit-btn Edit Profile
+                        a(href="/users/edit").blue-btn Edit Profile
                     else            
                         button.subscribe-btn Subscribe
         div.menu.hr
             button.menu-home.active HOME 
             button.menu-videos VIDEOS 
-        div.recentVideo.flex-r.hr
-            div#videoContainer.video-container(data-id=recentVideo._id)
-                div.video
-                    video(src="/" + recentVideo.fileUrl, autoplay)#video
-                div#videoControls.video__controls
-                    div.video__controls__timeline
-                        input(type="range", step='1', value=0, min='0')#timeline
-                    div.video__controls__buttons    
-                        div
-                            span#play
-                                i.fa-solid.fa-pause
-                            span#forward 
-                                i.fas.fa-step-forward
-                            span#mute
-                                i.fas.fa-volume-up
+        if recentVideo
+            div.recentVideo.flex-r.hr
+                div#videoContainer.video-container(data-id=recentVideo._id)
+                    div.video
+                        video(src="/" + recentVideo.fileUrl, autoplay)#video
+                    div#videoControls.video__controls
+                        div.video__controls__timeline
+                            input(type="range", step='1', value=0, min='0')#timeline
+                        div.video__controls__buttons    
                             div
-                                input(type='range', step="0.1", value=0.5, min='0', max='1')#volume 
-                            div.video__controls__time
-                                span#currentTime 00:00
-                                span  / 
-                                span#totalTime 00:00
-                        div
-                            span#fullScreen 
-                                i.fas.fa-expand
-            div.recentVideo-content
-                h1=recentVideo.title
-                div
-                    span #{recentVideo.meta.views} views
-                    span •
-                    span=moment(recentVideo.createdAt).fromNow()
-                p=recentVideo.description
-        div.user-videos
-            h1 Videos
-            div.user-videos__mixin
-                each video in user.videos 
-                    +video(video)
-                else 
-                    li Sorry nothing found
+                                span#play
+                                    i.fa-solid.fa-pause
+                                span#forward 
+                                    i.fas.fa-step-forward
+                                span#mute
+                                    i.fas.fa-volume-up
+                                div
+                                    input(type='range', step="0.1", value=0.5, min='0', max='1')#volume 
+                                div.video__controls__time
+                                    span#currentTime 00:00
+                                    span  / 
+                                    span#totalTime 00:00
+                            div
+                                span#fullScreen 
+                                    i.fas.fa-expand
+                div.recentVideo-content
+                    h1=recentVideo.title
+                    div
+                        span #{recentVideo.meta.views} views
+                        span •
+                        span=moment(recentVideo.createdAt).fromNow()
+                    p=recentVideo.description
+        each video in user.videos 
+            div.user-videos
+                h1 Videos
+                div.user-videos__mixin
+                    each video in user.videos 
+                        +video(video)
+        else
+            if loggedIn 
+                if String(loggedInUser._id) === String(user._id)
+                    div.no-content
+                        h1 Upload a video to get started
+                        p Start sharing your story and connecting with viewers. Videos you upload will show up here.
+                        a(href="/videos/upload").blue-btn Upload video
+                        small Learn more about 
+                            span.accent how to get started.
+                else
+                    div.no-content
+                        p This channel doesn't have any content.      
+            else
+                div.no-content
+                    p This channel doesn't have any content.     
 block scripts
     script(src="/static/js/videoPlayer.js")
     script(src="/static/js/profile.js")

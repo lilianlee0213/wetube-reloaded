@@ -39,10 +39,14 @@ export const postEdit = async (req, res) => {
 	const {
 		user: {_id},
 	} = req.session;
+	const {thumb} = req.files;
 	const {title, description, hashtags} = req.body;
 	const video = await Video.findById(id);
 	if (!video) {
 		return res.status(404).render('404', {pageTitle: 'Video not found.'});
+	}
+	if (!thumb) {
+		return res.redirect(`/videos/${id}`);
 	}
 	if (String(video.creator) !== String(_id)) {
 		req.flash('error', 'Only the creator can edit the video.');
@@ -52,6 +56,7 @@ export const postEdit = async (req, res) => {
 		title,
 		description,
 		hashtags: Video.formatHashtags(hashtags),
+		thumbUrl: thumb[0].path,
 	});
 	req.flash('success', 'Change');
 	return res.redirect(`/videos/${id}`);

@@ -39,9 +39,9 @@ block content
                     small 123K subscribers
                 if loggedIn    
                     if String(loggedInUser._id) === String(video.creator._id)
-                        a(href=`${video.id}/edit`).userEdit-btn Edit video
+                        a(href=`${video.id}/edit`).blue-btn Edit video
                         br
-                        a(href=`${video.id}/delete`).userDelete-btn Delete video
+                        a(href=`${video.id}/delete`).blue-btn Delete video
                     else
                         button.subscribe-btn Subscribe
                 else   
@@ -105,7 +105,7 @@ block content
                     form#commentForm.comment-form__form
                         textarea(placeholder="Add a comment...")#textarea
                         div.comment-form__btns
-                            button.cancel Cancel
+                            button(type='button').cancel Cancel
                             button.comment Comment
                 else
                     div.avatar.default-user

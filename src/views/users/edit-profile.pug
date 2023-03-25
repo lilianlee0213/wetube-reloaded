@@ -3,7 +3,7 @@ extends ../base
 block content
     div.edit__container
         form(method="POST" enctype="multipart/form-data")
-            div.edit-form__header.hr
+            div.edit-form__header.flex-r.flex-sb.r-center.hr
                 h1 Edit Profile
                 div.edit-form__buttons.flex-r
                     a(href=`/users/${loggedInUser._id}`) ViEW PROFILE

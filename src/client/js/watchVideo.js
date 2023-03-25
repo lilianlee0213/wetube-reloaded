@@ -7,38 +7,42 @@ let liked = false;
 window.addEventListener('click', function (e) {
 	const subscribeModal = creatorContainer.querySelector('.login-modal');
 	const modal = buttonContainer.querySelector('.login-modal');
-	const buttons = buttonContainer.querySelectorAll('button');
-	const title = modal.querySelector('h3');
-	const content = modal.querySelector('p');
 	let button = e.target.dataset.button;
 
-	button === 'subscribe'
-		? subscribeModal.classList.toggle('subscribe')
-		: subscribeModal.classList.remove('subscribe');
-
-	if (button === undefined) {
-		button = e.target.parentElement.dataset.button;
+	if (subscribeModal) {
+		button === 'subscribe'
+			? subscribeModal.classList.toggle('subscribe')
+			: subscribeModal.classList.remove('subscribe');
 	}
+	if (modal) {
+		const buttons = buttonContainer.querySelectorAll('button');
+		const title = modal.querySelector('h3');
+		const content = modal.querySelector('p');
 
-	buttons.forEach((btn) => {
-		if (btn.dataset.button !== button) {
-			modal.classList.remove(btn.dataset.button);
+		if (button === undefined) {
+			button = e.target.parentElement.dataset.button;
 		}
-	});
-	if (button === 'like') {
-		modal.classList.toggle('like');
-		title.innerText = 'Like this video?';
-		content.innerText = 'Sign in to make your opinion count.';
-	}
-	if (button === 'save') {
-		modal.classList.toggle('save');
-		title.innerText = 'Want to watch this agian later?';
-		content.innerText = 'Sign in to add this video to a playlist.';
-	}
-	if (button === 'more') {
-		modal.classList.toggle('more');
-		title.innerText = 'Need to report the video?';
-		content.innerText = 'Sign in to report inappropriate content.';
+
+		buttons.forEach((btn) => {
+			if (btn.dataset.button !== button) {
+				modal.classList.remove(btn.dataset.button);
+			}
+		});
+		if (button === 'like') {
+			modal.classList.toggle('like');
+			title.innerText = 'Like this video?';
+			content.innerText = 'Sign in to make your opinion count.';
+		}
+		if (button === 'save') {
+			modal.classList.toggle('save');
+			title.innerText = 'Want to watch this agian later?';
+			content.innerText = 'Sign in to add this video to a playlist.';
+		}
+		if (button === 'more') {
+			modal.classList.toggle('more');
+			title.innerText = 'Need to report the video?';
+			content.innerText = 'Sign in to report inappropriate content.';
+		}
 	}
 });
 
