@@ -12,8 +12,6 @@ module.exports = {
 		profile: BASE_JS + 'profile.js',
 		form: BASE_JS + 'form.js',
 	},
-	mode: 'development',
-	watch: true,
 	plugins: [new MiniCssExtractPlugin({filename: 'css/styles.css'})],
 	output: {
 		filename: 'js/[name].js',
