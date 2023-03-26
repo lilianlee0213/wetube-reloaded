@@ -28,11 +28,11 @@ block content
                                 span Edit thumbnail
                                 input(type="file", accept="image/*", id="thumb", name="thumb")
                             div.edit-thumb__img
-                                img(src=`${ "/" + video.thumbUrl}`)
+                                img(src=`${video.thumbUrl}`)
                 div.form-content__video
                     div#videoContainer.video-container(data-id=video._id)
                         div.video
-                            video(src="/" + video.fileUrl)#video
+                            video(src=video.fileUrl)#video
                         div#videoControls.video__controls
                             div.video__controls__timeline
                                 input(type="range", step='1', value=0, min='0')#timeline
