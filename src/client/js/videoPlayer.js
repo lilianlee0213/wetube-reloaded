@@ -27,7 +27,7 @@ const handleRangeStyle = (range, color1, color2) => {
 
 const handleKeyCode = (event) => {
 	const code = event.code;
-	if (event.target.id !== 'textarea') {
+	if (event.target === document.body) {
 		if (code == 'Space') {
 			event.preventDefault();
 			handlePlay();

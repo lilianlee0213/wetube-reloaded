@@ -212,19 +212,19 @@ export const postChangePassword = async (req, res) => {
 	if (!ok) {
 		return res.status(400).render('users/change-password', {
 			pageTitle: 'Change Password',
-			errorMessage: 'The current password is incorrect',
+			errorMessage: 'The current password is incorrect.',
 		});
 	}
 	if (newPassword !== newPasswordConfirmation) {
 		return res.status(400).render('users/change-password', {
 			pageTitle: 'Change Password',
-			errorMessage: 'The new password does not match the confirmation',
+			errorMessage: 'The new password does not match the confirmation.',
 		});
 	}
 	user.password = newPassword;
 	await user.save();
 	req.flash('info', 'Password Updated');
-	return res.redirect('/users/logout');
+	return res.redirect('/users/edit');
 };
 export const see = async (req, res) => {
 	const {id} = req.params;

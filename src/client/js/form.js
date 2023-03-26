@@ -1,4 +1,4 @@
-const form = document.querySelector('.edit-form__input');
+const form = document.querySelector('.form-content__input');
 const inputs = form.querySelectorAll('input');
 const updateBtn = document.querySelector('.update-btn');
 const cancelBtn = document.querySelector('.cancel-btn');

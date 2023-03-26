@@ -141,7 +141,7 @@ block content
                 div.moreVideo
                     div.video-thumbnail(style=`background-image:url(${ "/" + video.thumbUrl});background-size:cover; background-position:center;`)
                     div.video-desc
-                        a(href=`/videos/${video.id}`).video-title=video.title.slice(0,40) + '...'
+                        a(href=`/videos/${video.id}`).video-title=video.title > 30? video.title.slice(0,40) + '...' :video.title
                         a(href=`/users/${video.creator._id}`).video-creator=video.creator.username
                         div.video-meta 
                             span #{video.meta.views} views

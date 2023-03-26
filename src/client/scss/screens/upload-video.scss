@@ -1,0 +1,62 @@
+.form-content {
+	gap: 20px;
+	&.upload-video {
+		margin: inherit;
+		max-width: 1200px;
+		width: 100%;
+		.form-content__input {
+			width: 100%;
+			.file-input {
+				font-size: 14px;
+			}
+		}
+	}
+
+	.record-video {
+		margin-top: 25px;
+		width: 100%;
+		height: fit-content;
+		padding: 18px 12px;
+		border: 1px solid $grey;
+		border-radius: 8px;
+		background-color: $light_grey;
+		video {
+			width: 100%;
+			margin-bottom: 20px;
+		}
+		p {
+			font-size: 14px;
+			color: $font_grey;
+			margin-bottom: 12px;
+		}
+		button {
+			width: 100%;
+			padding: 14px 0;
+			border-radius: 8px;
+			font-size: 14px;
+			text-align: center;
+			text-transform: uppercase;
+			color: $white;
+			background-color: $blue;
+			opacity: 0.9;
+			&:hover {
+				opacity: 1;
+			}
+			&.stop {
+				color: $red;
+				background-color: $white;
+				border: 1px solid $red;
+			}
+			&.download {
+				color: $blue;
+				background-color: $white;
+				border: 1px solid $blue;
+			}
+			&.transcode {
+				color: $black;
+				background-color: $white;
+				border: 1px solid $blue;
+			}
+		}
+	}
+}

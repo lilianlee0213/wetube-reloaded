@@ -8,6 +8,7 @@
 @import './components/video.scss';
 @import './components/sidebar.scss';
 @import './components/form.scss';
+@import './components/sign.scss';
 @import './components/videoPlayer.scss';
 
 // Screens
@@ -15,6 +16,9 @@
 @import './screens//watch.scss';
 @import './screens/profile.scss';
 @import './screens/edit-profile.scss';
+@import './screens/edit-video.scss';
+@import './screens/change-password.scss';
+@import './screens/upload-video.scss';
 
 // Defaults
 * {
@@ -162,4 +166,11 @@ body {
 
 .accent {
 	color: $blue;
+}
+
+.errorMessage {
+	display: block;
+	margin-bottom: 20px;
+	color: $red;
+	font-size: 14px;
 }

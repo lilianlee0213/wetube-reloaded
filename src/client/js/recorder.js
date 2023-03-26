@@ -22,6 +22,8 @@ const downloadFile = (fileUrl, fileName) => {
 const handleDownload = async () => {
 	recordBtn.removeEventListener('click', handleDownload);
 	recordBtn.innerText = 'transcoding...';
+	recordBtn.classList.remove('download');
+	recordBtn.classList.add('transcode');
 	recordBtn.disabled = true;
 
 	const ffmpeg = createFFmpeg({log: true});
@@ -62,10 +64,14 @@ const handleDownload = async () => {
 	// reset
 	recordBtn.disabled = false;
 	recordBtn.innerText = 'Record Again';
+	recordBtn.classList.remove('transcode');
+
 	recordBtn.addEventListener('click', handleStart);
 };
 const handleStop = () => {
 	recordBtn.innerText = 'Download Recording';
+	recordBtn.classList.remove('stop');
+	recordBtn.classList.add('download');
 	recordBtn.removeEventListener('click', handleStop);
 	recordBtn.addEventListener('click', handleDownload);
 	recorder.stop();
@@ -83,6 +89,7 @@ const handleStart = async () => {
 	video.play();
 
 	recordBtn.innerText = 'Stop Recording';
+	recordBtn.classList.add('stop');
 	recordBtn.removeEventListener('click', handleStart);
 	recordBtn.addEventListener('click', handleStop);
 	recorder = new MediaRecorder(stream, {mimeType: 'video/webm'});

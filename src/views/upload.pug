@@ -1,22 +1,40 @@
 extends base
 
 block content
-    div
-        video#preview
-        button#startBtn Start Recording
-    if errorMessage
-        span=errorMessage
-    form(method="POST", enctype="multipart/form-data")
-        label(for="video") Video File
-        input(type="file", accept="video/*", required, id="video", name="video")
-        label(for="thumb") Thumbnail File
-        input(type="file", accept="image/*", required, id="thumb", name="thumb")
-        input(placeholder="Title", required, type="text", name="title", maxlength=80)
-        textarea(name="description", cols="30", rows="10" placeholder="Tell viewers about your video", required, minlength=10)=video.description  
-        //- input(placeholder="Description", required,  type="text", minlength=20, name="description") 
-        input(placeholder="Hashtags, separated by comma.", required, type="text", name="hashtags") 
-        input(type="submit", value="Upload Video")
-
+    div.form__container
+        form(method="POST" enctype="multipart/form-data")
+            div.form-header.flex-r.flex-sb.r-center.hr
+                h1 Upload video
+                div.form-header__buttons.flex-r
+                    button(type="button").cancel-btn UNDO CHANGES
+                    button(type="submit", value="Upload Video").update-btn UPLOAD
+            div.upload-video.form-content.flex-r
+                div.form-content__input
+                    div.flex-c
+                        label(for="video") Video File
+                        input(type="file", accept="video/*", required, id="video", name="video").file-input
+                    div.flex-c     
+                        label(for="thumb") Thumbnail File
+                        input(type="file", accept="image/*", required, id="thumb", name="thumb").file-input
+                    div.flex-c
+                        label(for="title") Video Title
+                        input(placeholder="Title", required, type="text", name="title", maxlength=80)
+                    div.flex-c
+                        label(for="description") Video description
+                        textarea(name="description", cols="30", rows="10" placeholder="Tell viewers about your video", required, minlength=10)
+                    div.flex-c
+                        label(for="hashtags") Hashtags
+                        input(placeholder="Hashtags, separated by comma.", required, type="text", name="hashtags") 
+                    div.flex-c
+                div.record-video
+                    div
+                        video#preview(controls style="object-fit: cover;")
+                    div
+                        p Want to record a video?
+                        button(type="button")#startBtn Start Recording
+    //- if errorMessage
+    //-     span=errorMessage
 block scripts
     script(src="/static/js/recorder.js")
+    script(src="/static/js/form.js")
         

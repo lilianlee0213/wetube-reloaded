@@ -1,27 +1,64 @@
 extends base
 
 block content
-    div.edit__container
+    div.form__container
         form(method="POST" enctype="multipart/form-data")
-            div.edit-form__header.flex-r.flex-sb.r-center.hr
+            div.form-header.flex-r.flex-sb.r-center.hr
                 h1 Video details
-                div.edit-form__buttons.flex-r
+                div.form-header__buttons.flex-r
                     button(type="button").cancel-btn UNDO CHANGES
-                    button(type="submit", value="Upload Video").update-btn SAVE
-            div.edit-form__content
-                div.edit-form__input.flex-c
+                    button(type="submit", value="Edit Video").update-btn SAVE
+            div.edit-video.form-content.flex-r
+                div.form-content__input
                     div.flex-c
                         label(for="title") Title
-                        input(placeholder="Title", required, type="text", name="title", maxlength=80, value=video.title).edit-video__title 
+                        input(placeholder="Title", required, type="text", name="title", maxlength=80, value=video.title)
                     div.flex-c
                         label(for='description') Description
                         textarea(name="description", cols="30", rows="10" placeholder="Tell viewers about your video", required, minlength=10)=video.description 
-                        //- input(placeholder="Tell viewers about your video", required,  type="text", minlength=20, name="description", value=video.description).edit-video__desc 
                     div.flex-c
                         label(for="hashtags") Hashtags
-                        input(placeholder="Hashtags, separated by comma.", required, type="text", name="hashtags", value=video.hashtags.join())
-                    div.flex-c
+                        input(placeholder="Hashtags, separated by comma.", required, type="text", name="hashtags", value=video.hashtags.join()).hashtags 
+                    div.flex-c.edit-thumb
                         label(for="thumb") Thumbnail
-                        input(type="file", accept="image/*", id="thumb", name="thumb")                       
+                        p Select or upload a picture that shows what's in your video.
+                        small Learn more
+                        div.flex-r 
+                            div.edit-thumb__box
+                                span Edit thumbnail
+                                input(type="file", accept="image/*", id="thumb", name="thumb")
+                            div.edit-thumb__img
+                                img(src=`${ "/" + video.thumbUrl}`)
+                div.form-content__video
+                    div#videoContainer.video-container(data-id=video._id)
+                        div.video
+                            video(src="/" + video.fileUrl)#video
+                        div#videoControls.video__controls
+                            div.video__controls__timeline
+                                input(type="range", step='1', value=0, min='0')#timeline
+                            div.video__controls__buttons    
+                                div
+                                    span#play
+                                        i.fa-solid.fa-pause
+                                    span#forward 
+                                        i.fas.fa-step-forward
+                                    span#mute
+                                        i.fas.fa-volume-up
+                                    div
+                                        input(type='range', step="0.1", value=0.5, min='0', max='1')#volume 
+                                    div.video__controls__time
+                                        span#currentTime 00:00
+                                        span  / 
+                                        span#totalTime 00:00
+                                div
+                                    span#fullScreen 
+                                        i.fas.fa-expand                         
+                    div.form-content__video__info
+                        small Video link
+                        a(href=`/videos/${video._id}`) videos/#{video._id} 
+                        small Filename 
+                        p=video.title
+         
 block scripts
-    script(src="/static/js/edit.js")
+    script(src="/static/js/form.js")
+    script(src="/static/js/videoPlayer.js")

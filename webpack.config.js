@@ -10,7 +10,7 @@ module.exports = {
 		watchVideo: BASE_JS + 'watchVideo.js',
 		commentSection: BASE_JS + 'commentSection.js',
 		profile: BASE_JS + 'profile.js',
-		edit: BASE_JS + 'edit.js',
+		form: BASE_JS + 'form.js',
 	},
 	mode: 'development',
 	watch: true,

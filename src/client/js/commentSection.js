@@ -1,6 +1,6 @@
 const videoContainer = document.getElementById('videoContainer');
 const form = document.getElementById('commentForm');
-const cancelBtn = form.querySelector('.cancel');
+const cancelBtn = document.querySelector('.cancel');
 const modalBtns = document.querySelectorAll('.option-modal__btn i');
 const deleteBtn = document.querySelectorAll('.delete-btn');
 

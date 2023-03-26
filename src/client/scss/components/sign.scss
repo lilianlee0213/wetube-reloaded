@@ -1,0 +1,111 @@
+.container {
+	width: 100%;
+	padding-top: 50px;
+	font-family: 'Roboto', sans-serif;
+	.header__container {
+		text-align: center;
+		.header-logo {
+			margin-bottom: 10px;
+			font-size: 40px;
+			color: $red;
+		}
+		.header-wetube {
+			margin-bottom: 20px;
+			font-size: 20px;
+			color: $black;
+		}
+	}
+	.form__container,
+	.link__container {
+		width: 350px;
+		padding: 16px;
+		border: 1px solid $grey;
+		border-radius: 4px;
+	}
+	.form__container {
+		margin-bottom: 20px;
+		form {
+			gap: 5px;
+			height: 100%;
+			border-radius: 6px;
+			label {
+				margin-bottom: 6px;
+				font-size: 14px;
+			}
+			input {
+				margin-bottom: 14px;
+				width: 100%;
+				padding: 6px 12px;
+				border-radius: 4px;
+				font-size: 14px;
+				&::placeholder {
+					color: $grey;
+				}
+				&:hover {
+					border: 1px solid $blue;
+				}
+				&:focus {
+					border: 1.8px solid $blue;
+				}
+
+				&.submit-btn {
+					padding: 8px 12px;
+					border: none;
+					font-weight: 600;
+					color: white;
+					background-color: $blue;
+					opacity: 0.9;
+					cursor: pointer;
+					&:hover,
+					&:focus {
+						opacity: 1;
+					}
+				}
+			}
+			.github-btn {
+				padding: 8px 12px;
+				border: 1px solid $blue;
+				border-radius: 4px;
+				background-color: $white;
+				a {
+					color: $blue;
+					font-weight: 600;
+				}
+				&:hover,
+				&:focus {
+					background-color: $light_blue;
+					border-color: $white;
+				}
+			}
+		}
+	}
+	// login page
+	.link__container {
+		font-size: 14px;
+		text-align: center;
+		line-height: 20px;
+		span {
+			a {
+				display: inline-block;
+				margin-left: 4px;
+				color: $blue;
+			}
+		}
+	}
+}
+.form__container {
+	&.join__form {
+		width: 500px;
+		.gap {
+			gap: 20px;
+			label {
+				margin-bottom: 4px;
+			}
+		}
+	}
+}
+.link__container {
+	&.join__link {
+		width: 500px;
+	}
+}
