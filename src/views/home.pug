@@ -7,4 +7,10 @@ block content
             each video in videos
                 +video(video)   
             else 
-                li sorry nothing found
+                div.no-content
+                        h1 Upload a video to get started
+                        p Start sharing your story and connecting with viewers. Videos you upload will show up here.
+                        a(href="/videos/upload").blue-btn Upload video
+                        if !loggedIn
+                            small Don't have an account yet? 
+                            a(href="/join").accent.link Sign up to get started.

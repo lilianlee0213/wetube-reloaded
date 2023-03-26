@@ -7,4 +7,13 @@
 	grid-template-columns: repeat(auto-fill, 311px);
 	gap: 20px;
 	padding-top: 80px;
+	.no-content {
+		position: absolute;
+		justify-self: center;
+
+		.link {
+			font-size: 13px;
+			display: inline;
+		}
+	}
 }
