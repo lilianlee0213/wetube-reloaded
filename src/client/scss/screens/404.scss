@@ -1,0 +1,33 @@
+.page__container {
+	margin: 0 auto;
+	padding-top: 80px;
+	width: fit-content;
+	text-align: center;
+	.page-content {
+		h1 {
+			font-size: 200px;
+			font-weight: 900;
+			color: $white;
+			margin-bottom: 40px;
+			-webkit-text-stroke: 2px $red;
+			text-shadow: 2px 2px 8px $grey;
+		}
+		p {
+			margin-bottom: 30px;
+			font-size: 24px;
+			text-transform: capitalize;
+		}
+		small {
+			display: block;
+			margin-bottom: 40px;
+			font-size: 14px;
+			color: $font_grey;
+		}
+		a {
+			display: block;
+			margin: 0 auto;
+			width: 120px;
+			padding: 12px 20px;
+		}
+	}
+}

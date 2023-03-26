@@ -15,7 +15,7 @@ export const watch = async (req, res) => {
 		.populate('comments');
 	const videos = await Video.find({}).populate('creator');
 	if (!video) {
-		return res.render('404', {pageTitle: 'Video not found.'});
+		return res.render('404', {pageTitle: 'Video Not Found'});
 	}
 	return res.render('watch', {pageTitle: video.title, video, videos});
 };
@@ -26,10 +26,10 @@ export const getEdit = async (req, res) => {
 	} = req.session;
 	const video = await Video.findById(id);
 	if (!video) {
-		return res.status(404).render('404', {pageTitle: 'Video not found.'});
+		return res.status(404).render('404', {pageTitle: 'Video Not Found'});
 	}
 	if (String(video.creator) !== String(_id)) {
-		req.flash('error', 'Not authorized');
+		req.flash('error', 'Not authorized.');
 		return res.status(403).redirect('/');
 	}
 	return res.render('edit', {pageTitle: `Edit ${video.title}`, video});
@@ -44,7 +44,7 @@ export const postEdit = async (req, res) => {
 	const video = await Video.findById(id);
 	console.log(video);
 	if (!video) {
-		return res.status(404).render('404', {pageTitle: 'Video not found.'});
+		return res.status(404).render('404', {pageTitle: 'Video Not Found'});
 	}
 
 	if (String(video.creator) !== String(_id)) {
@@ -57,6 +57,7 @@ export const postEdit = async (req, res) => {
 			description,
 			hashtags: Video.formatHashtags(hashtags),
 		});
+		req.flash('success', 'Your video has been updated.');
 		return res.redirect(`/videos/${id}`);
 	} else {
 		await Video.findByIdAndUpdate(id, {
@@ -66,7 +67,7 @@ export const postEdit = async (req, res) => {
 			thumbUrl: thumb[0].path,
 		});
 	}
-	req.flash('success', 'Change');
+	req.flash('success', 'Your video has been updated.');
 	return res.redirect(`/videos/${id}`);
 };
 export const getUpload = (req, res) => {
@@ -107,7 +108,7 @@ export const deleteVideo = async (req, res) => {
 	} = req.session;
 	const video = await Video.findById(id);
 	if (!video) {
-		return res.status(404).render('404', {pageTitle: 'Video not found.'});
+		return res.status(404).render('404', {pageTitle: 'Video Not Found'});
 	}
 	if (String(video.creator) !== String(_id)) {
 		return res.status(403).redirect('/');
@@ -187,7 +188,6 @@ export const deleteComment = async (req, res) => {
 	video.save();
 	return res.sendStatus(200);
 };
-
 export const giveLikes = async (req, res) => {
 	const {id} = req.params;
 	const {
@@ -215,6 +215,3 @@ export const giveLikes = async (req, res) => {
 	await user.save();
 	return res.status(200).json({isLiked});
 };
-
-// lilian -> loggedinSession._id = 641483c331fd21d3f93a0290
-// lilian이 좋아한 비디오의 like array = [ new ObjectId("641483c331fd21d3f93a0290") ]

@@ -38,11 +38,7 @@ block content
                     a(href=`/users/${video.creator._id}`)=video.creator.username
                     small 123K subscribers
                 if loggedIn    
-                    if String(loggedInUser._id) === String(video.creator._id)
-                        a(href=`${video.id}/edit`).blue-btn Edit video
-                        br
-                        a(href=`${video.id}/delete`).blue-btn Delete video
-                    else
+                    if String(loggedInUser._id) !== String(video.creator._id)
                         button.subscribe-btn Subscribe
                 else   
                     button(data-button="subscribe").subscribe-btn Subscribe
@@ -57,7 +53,6 @@ block content
                         i.fa-regular.fa-thumbs-up
                         span |
                         span=video.meta.rating
-                         
                     button(data-button="share")
                         i.fa-solid.fa-arrow-up-from-bracket
                         span Share
@@ -70,23 +65,27 @@ block content
                         h3 Like this video?
                         p Sign in to make your opinion count.
                         a(href="/join") Sign in
-
                 else
                     button#likeBtn
                         i.fa-regular.fa-thumbs-up
                         span |
                         span#rating=video.meta.rating 
-                    button 
-                        i.fa-solid.fa-arrow-up-from-bracket
-                        span Share
-                    button 
-                        i.fa-solid.fa-download
-                        span Download 
-                    button
-                        i.fa-solid.fa-bookmark
-                        span Save  
-                    button.more
-                        i.fa-solid.fa-ellipsis
+                    if loggedIn        
+                        if String(loggedInUser._id) !== String(video.creator._id)
+                            button 
+                                i.fa-solid.fa-arrow-up-from-bracket
+                                span Share
+                            button 
+                                i.fa-solid.fa-download
+                                span Download 
+                            button
+                                i.fa-solid.fa-bookmark
+                                span Save  
+                            button.more
+                                i.fa-solid.fa-ellipsis
+                        else
+                            a(href=`${video.id}/edit`) Edit video
+                            a(href=`${video.id}/delete`) Delete video    
             div.video-meta 
                 strong.video-meta__views #{video.meta.views} views
                 small.video-meta__createdAt=moment(video.createdAt).fromNow()
@@ -124,16 +123,16 @@ block content
                         div.comment-view__content
                             span=comment.creatorUsername
                             span=moment(comment.createdAt).fromNow()
-                            p=comment.text
-                            i.fa-regular.fa-thumbs-up
-                            span=video.meta.rating
+                            p.commentText=comment.text
+                            //- i.fa-regular.fa-thumbs-up
+                            //- span=video.meta.rating
                         if loggedIn    
                             if String(loggedInUser._id) === String(comment.creator) 
                                 div.option-modal(data-id=comment._id)  
                                     button.option-modal__btn
                                         i.fa.fa-ellipsis-v
                                     div.option-box
-                                        button.edit-btn Edit
+                                        //- button.edit-btn Edit
                                         button.delete-btn Delete
 
         div.moreVideos-container
@@ -141,20 +140,13 @@ block content
                 div.moreVideo
                     div.video-thumbnail(style=`background-image:url(${ "/" + video.thumbUrl});background-size:cover; background-position:center;`)
                     div.video-desc
-                        a(href=`/videos/${video.id}`).video-title=video.title > 30? video.title.slice(0,40) + '...' :video.title
+                        a(href=`/videos/${video.id}`).video-title=video.title.length > 40? video.title.slice(0,40) + '...' :video.title
                         a(href=`/users/${video.creator._id}`).video-creator=video.creator.username
                         div.video-meta 
                             span #{video.meta.views} views
                             span=moment(video.createdAt).fromNow()
             else 
-                li sorry nothing found
-        //- div
-        //-     p=video.description
-        //-     small=video.createdAt
-        //- div 
-        //-     small Uploaded by 
-        //-         a(href=`/users/${video.creator._id}`)=video.creator.username
-               
+                li sorry nothing found             
 block scripts
     script(src="/static/js/videoPlayer.js")
     script(src="/static/js/watchVideo.js")

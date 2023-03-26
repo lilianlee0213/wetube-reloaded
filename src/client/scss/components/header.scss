@@ -2,20 +2,19 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Gothic&display=swap');
 
 header {
+	position: relative;
 	width: 100%;
+	height: 100%;
 	.header__container {
 		position: fixed;
 		top: 0;
-		width: 100%;
-		z-index: 2022;
-		transform: translateY(0);
-		background-color: $white;
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
-		padding: 0 28px;
-		height: 56px;
-		border-bottom: 1px solid $grey;
+		justify-content: space-between;
+		padding: 10px 28px;
+		width: 100%;
+		background-color: $white;
+		z-index: 2023;
 		.header-start {
 			display: flex;
 			justify-content: center;
@@ -43,6 +42,7 @@ header {
 			}
 		}
 		.header-search {
+			width: 30%;
 			.search-form {
 				div {
 					position: relative;
@@ -52,7 +52,7 @@ header {
 					}
 					.search-input {
 						padding-inline: 16px;
-						width: 500px;
+						width: 100%;
 						height: 38px;
 						font-size: 16px;
 						border-top-left-radius: 40px;

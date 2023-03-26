@@ -10,15 +10,8 @@ mixin video(video)
                         a(href=`/users/${video.creator._id}`)   
                             img(src=`${video.creator.avatarUrl}`,crossOrigin).avatar
             div.video-mixin__desc
-                a(href=`/videos/${video.id}`).video-mixin__title=video.title
+                a(href=`/videos/${video.id}`).video-mixin__title=video.title.length > 60? video.title.slice(0,60) + '...' :video.title
                 a(href=`/users/${video.creator.id}`).video-mixin__username=video.creator.username  
                 div.video-mixin__meta 
                     span #{video.meta.views} views
                     span=moment(video.createdAt).fromNow()
-//- h4 
-           
-//-         p=video.description
-//-         ul
-//-             each hashtag in video.hashtags
-//-                 li=hashtag 
-//-             small=video.createdAt

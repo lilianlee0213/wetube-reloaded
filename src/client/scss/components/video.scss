@@ -1,7 +1,6 @@
 .video-mixin {
-	height: 300px;
 	.video-mixin__thumb {
-		height: 200px;
+		aspect-ratio: 16/9;
 		width: 100%;
 		max-width: 380px;
 		border-radius: 16px;

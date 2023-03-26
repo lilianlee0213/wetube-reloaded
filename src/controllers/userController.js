@@ -138,7 +138,7 @@ export const finishGithibLogin = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-	req.flash('success', 'Successfully Logged Out');
+	req.flash('success', 'You have been successfully logged out.');
 	req.session.user = null;
 	res.locals.loggedInUser = req.session.user;
 	req.session.loggedIn = false;
@@ -188,13 +188,14 @@ export const postEdit = async (req, res) => {
 		{new: true}
 	);
 	req.session.user = updatedUser;
-	return res.redirect('/users/edit');
+	req.flash('success', 'Your profile has been updated.');
+	return res.redirect(`/users/${_id}`);
 };
 export const getChangePassword = (req, res) => {
 	// only allowed when socialOnly=false
 	if (req.session.user.socialOnly === true) {
-		req.flash('error', "Can't change password");
-		return res.redirect('/');
+		req.flash('error', "Sorry, you don't have password to change.");
+		return res.status(403).redirect('/');
 	}
 	return res.render('users/change-password', {pageTitle: 'Change Password'});
 };
@@ -223,7 +224,7 @@ export const postChangePassword = async (req, res) => {
 	}
 	user.password = newPassword;
 	await user.save();
-	req.flash('info', 'Password Updated');
+	req.flash('success', 'Your password has been successfully updated.');
 	return res.redirect('/users/edit');
 };
 export const see = async (req, res) => {
@@ -237,7 +238,7 @@ export const see = async (req, res) => {
 	});
 
 	if (!user) {
-		return res.status(404).render('404', {pageTitle: 'User not found'});
+		return res.status(404).render('404', {pageTitle: 'User Not Found'});
 	}
 	return res.render('users/profile', {
 		pageTitle: `${user.username}'s Profile`,

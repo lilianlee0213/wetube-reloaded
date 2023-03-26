@@ -39,7 +39,8 @@
 		align-items: center;
 		gap: 10px;
 	}
-	button {
+	button,
+	a {
 		border-radius: 18px;
 		font-size: 14px;
 	}
@@ -68,7 +69,8 @@
 	.video-buttons {
 		justify-content: flex-end;
 		grid-area: buttons;
-		button {
+		button,
+		a {
 			display: flex;
 			align-items: center;
 			gap: 8px;

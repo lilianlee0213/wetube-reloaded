@@ -19,6 +19,7 @@
 @import './screens/edit-video.scss';
 @import './screens/change-password.scss';
 @import './screens/upload-video.scss';
+@import './screens/404.scss';
 
 // Defaults
 * {
@@ -56,6 +57,9 @@ body {
 
 @keyframes goAway {
 	0% {
+		opacity: 0;
+	}
+	50% {
 		opacity: 1;
 	}
 	100% {
@@ -64,17 +68,27 @@ body {
 }
 .message {
 	position: absolute;
-	width: 400px;
 	top: 80px;
 	left: 0;
 	right: 0;
-	padding: 10px 20px;
 	margin: 0 auto;
-	animation: goAway 3s ease-in-out;
-	animation-delay: 0.5s;
+	width: 350px;
+	padding: 14px 20px 16px;
+	font-size: 14px;
+	color: $font_grey;
+	letter-spacing: 0.02rem;
+	border-left: 6px solid;
+	box-shadow: $box-shadow2;
+	animation: goAway 2.5s ease-in-out;
+	opacity: 0;
+	&.success {
+		border-left-color: #47d864;
+	}
 	&.error {
-		border: 1px solid $red;
-		opacity: 0;
+		border-left-color: #e95a5a;
+	}
+	&.info {
+		border-left-color: $blue;
 	}
 }
 .grid {
@@ -117,14 +131,13 @@ body {
 	}
 }
 .signin-btn {
-	// width: ;
 	padding-inline: 20px;
 	border: 1px solid $light_grey;
 	border-radius: 40px;
-	box-shadow: $box-shadow;
 	font-size: 15px;
 	line-height: 38px;
 	color: $blue;
+	box-shadow: $box-shadow;
 
 	&:hover {
 		background-color: $light_blue;

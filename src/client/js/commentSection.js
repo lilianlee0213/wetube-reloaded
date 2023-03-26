@@ -1,5 +1,6 @@
 const videoContainer = document.getElementById('videoContainer');
 const form = document.getElementById('commentForm');
+const commentView = document.querySelector('.comment-view__content');
 const cancelBtn = document.querySelector('.cancel');
 const modalBtns = document.querySelectorAll('.option-modal__btn i');
 const deleteBtn = document.querySelectorAll('.delete-btn');
@@ -13,7 +14,19 @@ const handleCommentBtn = () => {
 	commentBtn.style.backgroundColor = textarea.value ? '#065fd4' : '#f0f0f0';
 	commentBtn.style.color = textarea.value ? '#def1ff' : '#606060';
 };
+const handleToggle = (event) => {
+	const toggleBtn = event.target.parentElement;
 
+	modalBtns.forEach((btn) => {
+		if (toggleBtn !== btn.parentElement) {
+			btn.parentElement.classList.remove('active');
+			btn.parentElement.nextElementSibling.classList.remove('active');
+		} else {
+			toggleBtn.classList.toggle('active');
+			toggleBtn.nextElementSibling.classList.toggle('active');
+		}
+	});
+};
 const addComment = (text, id, commentUser, avatar, username, lastname) => {
 	const commentContainer = document.querySelector('.comment-view');
 	const newComment = document.createElement('div');
@@ -27,7 +40,7 @@ const addComment = (text, id, commentUser, avatar, username, lastname) => {
 	const modalBtn = document.createElement('button');
 	const modalIcon = document.createElement('i');
 	const optionBox = document.createElement('div');
-	const editBtn = document.createElement('button');
+	// const editBtn = document.createElement('button');
 	const deleteBtn = document.createElement('button');
 
 	newComment.dataset.id = id;
@@ -51,6 +64,7 @@ const addComment = (text, id, commentUser, avatar, username, lastname) => {
 	span1.innerText = username;
 	span2.innerHTML = 'Just now';
 	p.innerText = text;
+	p.classList.add('commentText');
 
 	//comment option buttons(delete & edit)
 	optionModal.classList = 'option-modal';
@@ -58,8 +72,8 @@ const addComment = (text, id, commentUser, avatar, username, lastname) => {
 	modalBtn.classList = 'option-modal__btn';
 	modalIcon.classList = 'fa fa-ellipsis-v';
 	optionBox.classList = 'option-box';
-	editBtn.classList = 'edit-btn';
-	editBtn.innerText = 'Edit';
+	// editBtn.classList = 'edit-btn';
+	// editBtn.innerText = 'Edit';
 	deleteBtn.classList = 'delete-btn';
 	deleteBtn.innerHTML = 'Delete';
 
@@ -75,7 +89,7 @@ const addComment = (text, id, commentUser, avatar, username, lastname) => {
 	optionModal.appendChild(modalBtn);
 	optionModal.appendChild(optionBox);
 	modalBtn.appendChild(modalIcon);
-	optionBox.appendChild(editBtn);
+	// optionBox.appendChild(editBtn);
 	optionBox.appendChild(deleteBtn);
 	modalIcon.addEventListener('click', (e) => {
 		modalBtn.classList.toggle('active');
@@ -85,19 +99,6 @@ const addComment = (text, id, commentUser, avatar, username, lastname) => {
 		}
 	});
 	deleteBtn.addEventListener('click', handleDeleteComment);
-};
-const handleToggle = (event) => {
-	const toggleBtn = event.target.parentElement;
-
-	modalBtns.forEach((btn) => {
-		if (toggleBtn !== btn.parentElement) {
-			btn.parentElement.classList.remove('active');
-			btn.parentElement.nextElementSibling.classList.remove('active');
-		} else {
-			toggleBtn.classList.toggle('active');
-			toggleBtn.nextElementSibling.classList.toggle('active');
-		}
-	});
 };
 
 const handleSubmit = async (event) => {
