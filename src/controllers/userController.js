@@ -167,7 +167,6 @@ export const postEdit = async (req, res) => {
 	if (search.length > 0) {
 		const existUser = await User.findOne({$or: search});
 		if (existUser && existUser._id.toString() !== _id) {
-			console.log(existUser);
 			return res.status(404).render('users/edit-profile', {
 				pageTitle,
 				errorMessage: 'This username/email is already taken.',
