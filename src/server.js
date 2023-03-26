@@ -14,11 +14,9 @@ const logger = morgan('dev');
 app.set('view engine', 'pug');
 app.set('views', process.cwd() + '/src/views');
 app.use((req, res, next) => {
-	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.header(
-		'Access-Control-Allow-Headers',
-		'Origin, X-Requested, Content-Type, Accept'
-	);
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, Delete');
+	res.header('Access-Control-Allow-Headers', 'Content-Type');
 	next();
 });
 app.use(logger);

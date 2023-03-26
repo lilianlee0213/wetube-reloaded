@@ -10,7 +10,7 @@ block content
                             span=user.lastName.substring(0,1) 
                     else
                         a(href=`/users/${user._id}`)   
-                            img(src=`${user.avatarUrl}`,crossOrigin).avatar
+                            img(src=user.avatarUrl,crossOrigin).avatar
                     div.user-profile__info
                         a(href=`/users/${user._id}`) @#{user.username}
                         small 123K subscribers
@@ -27,7 +27,7 @@ block content
             div.recentVideo.flex-r.hr
                 div#videoContainer.video-container(data-id=recentVideo._id)
                     div.video
-                        video(src="/" + recentVideo.fileUrl, autoplay)#video
+                        video(src=recentVideo.fileUrl, autoplay)#video
                     div#videoControls.video__controls
                         div.video__controls__timeline
                             input(type="range", step='1', value=0, min='0')#timeline
@@ -51,8 +51,8 @@ block content
                 div.recentVideo-content
                     h1=recentVideo.title
                     div
-                        span #{recentVideo.meta.views} views
-                        span •
+                        span #{recentVideo.meta.views} views 
+                        span • 
                         span=moment(recentVideo.createdAt).fromNow()
                     p=recentVideo.description
         each video in user.videos 

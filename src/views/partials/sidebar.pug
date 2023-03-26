@@ -21,9 +21,10 @@ aside#sidebar.sidebar
                 li  
                     a(href="/")
                         i.fa-solid.fa-clock-rotate-left 
-                        span History  
-            div.sidebar-links__hidden 
-                p Sign in to like videos, comment, and subscribe.
-                a(href="/join").signin-btn 
-                    i.fa-regular.fa-user 
-                    span Sign in
+                        span History
+            if !loggedIn              
+                div.sidebar-links__hidden 
+                    p Sign in to like videos, comment, and subscribe.
+                    a(href="/join").signin-btn 
+                        i.fa-regular.fa-user 
+                        span Sign in

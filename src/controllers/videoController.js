@@ -80,6 +80,7 @@ export const postUpload = async (req, res) => {
 	} = req.session;
 	const {video, thumb} = req.files;
 	const {title, description, hashtags} = req.body;
+	console.log(req.files);
 	try {
 		const newVideo = await Video.create({
 			title,

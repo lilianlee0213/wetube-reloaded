@@ -4,7 +4,7 @@ block content
     div.watch__container
         div#videoContainer.video-container(data-id=video._id)
             div.video
-                video(src=-video.fileUrl, crossOrigin, autoplay)#video
+                video(src=video.fileUrl, crossOrigin, autoplay)#video
             div#videoControls.video__controls
                 div.video__controls__timeline
                     input(type="range", step='1', value=0, min='0')#timeline
@@ -138,7 +138,7 @@ block content
         div.moreVideos-container
             each video in videos
                 div.moreVideo
-                    div.video-thumbnail(style=`background-image:url(${ "/" + video.thumbUrl});background-size:cover; background-position:center;`)
+                    div.video-thumbnail(style=`background-image:url(${video.thumbUrl});background-size:cover; background-position:center;`)
                     div.video-desc
                         a(href=`/videos/${video.id}`).video-title=video.title.length > 40? video.title.slice(0,40) + '...' :video.title
                         a(href=`/users/${video.creator._id}`).video-creator=video.creator.username
