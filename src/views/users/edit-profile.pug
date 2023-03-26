@@ -16,7 +16,7 @@ block content
                             span=loggedInUser.lastName.substring(0,1) 
                     else
                         div.flex-r.center.avatar-after
-                            img(src=`${loggedInUser.avatarUrl}`,crossOrigin)#avatar.avatar
+                            img(src=loggedInUser.avatarUrl,crossOrigin)#avatar.avatar
                     input(type="file",id="avatar", name="avatar", accept="image/*").avatar-input
                     label(for="avatar").avatar-label Edit profile picture
                     div.avatar-overlay.flex-c.center
