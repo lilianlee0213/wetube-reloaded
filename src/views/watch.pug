@@ -4,7 +4,7 @@ block content
     div.watch__container
         div#videoContainer.video-container(data-id=video._id)
             div.video
-                video(src="/" + video.fileUrl, autoplay)#video
+                video(src=-video.fileUrl, crossOrigin, autoplay)#video
             div#videoControls.video__controls
                 div.video__controls__timeline
                     input(type="range", step='1', value=0, min='0')#timeline

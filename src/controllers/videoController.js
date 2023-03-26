@@ -64,7 +64,7 @@ export const postEdit = async (req, res) => {
 			title,
 			description,
 			hashtags: Video.formatHashtags(hashtags),
-			thumbUrl: thumb[0].path,
+			thumbUrl: thumb[0].location,
 		});
 	}
 	req.flash('success', 'Your video has been updated.');
@@ -84,8 +84,8 @@ export const postUpload = async (req, res) => {
 		const newVideo = await Video.create({
 			title,
 			description,
-			fileUrl: video[0].path,
-			thumbUrl: thumb[0].path,
+			fileUrl: video[0].location,
+			thumbUrl: thumb[0].location,
 			creator: _id,
 			hashtags: Video.formatHashtags(hashtags),
 		});

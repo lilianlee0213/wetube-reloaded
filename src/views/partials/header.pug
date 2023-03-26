@@ -58,14 +58,14 @@ header
                                 span=loggedInUser.lastName.substring(0,1) 
                     else  
                         div#userDropdownBtn
-                            img(src=`${loggedInUser.avatarUrl}`,crossOrigin).avatar
+                            img(src=loggedInUser.avatarUrl,crossOrigin).avatar
                 div#userDropdown.dropdown-menu   
                     div.dropdown-menu__header
                         if !loggedInUser.avatarUrl
                             div.avatar.no-image
                                 span=loggedInUser.lastName.substring(0,1) 
                         else  
-                            img(src=`${loggedInUser.avatarUrl}`,crossOrigin).avatar
+                            img(src=loggedInUser.avatarUrl,crossOrigin).avatar
                         div.dropdown-menu__account
                             h3=loggedInUser.firstName + ' ' +loggedInUser.lastName
                             h4=loggedInUser.email

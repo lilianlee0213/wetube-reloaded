@@ -8,15 +8,17 @@ import userRouter from './routers/userRouter';
 import videoRouter from './routers/videoRouter';
 import apiRouter from './routers/apiRouter';
 import {localsMiddleware} from './middlewares';
-
 const app = express();
 const logger = morgan('dev');
 
 app.set('view engine', 'pug');
 app.set('views', process.cwd() + '/src/views');
-app.use(function (req, res, next) {
-	res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
-	res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+app.use((req, res, next) => {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.header(
+		'Access-Control-Allow-Headers',
+		'Origin, X-Requested, Content-Type, Accept'
+	);
 	next();
 });
 app.use(logger);
