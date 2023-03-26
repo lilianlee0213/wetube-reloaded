@@ -1,6 +1,7 @@
 import Video from '../models/Video';
 import User from '../models/User';
 import Comment from '../models/Comment';
+import file from '@babel/core/lib/transformation/file/file';
 
 export const home = async (req, res) => {
 	const videos = await Video.find({})
@@ -42,7 +43,7 @@ export const postEdit = async (req, res) => {
 	const {thumb} = req.files;
 	const {title, description, hashtags} = req.body;
 	const video = await Video.findById(id);
-	console.log(video);
+	const isHeroku = process.env.NODE_ENV === 'production';
 	if (!video) {
 		return res.status(404).render('404', {pageTitle: 'Video Not Found'});
 	}
@@ -64,7 +65,7 @@ export const postEdit = async (req, res) => {
 			title,
 			description,
 			hashtags: Video.formatHashtags(hashtags),
-			thumbUrl: thumb[0].location,
+			thumbUrl: isHeroku ? thumb[0].location : '/' + video[0].path,
 		});
 	}
 	req.flash('success', 'Your video has been updated.');
@@ -80,13 +81,14 @@ export const postUpload = async (req, res) => {
 	} = req.session;
 	const {video, thumb} = req.files;
 	const {title, description, hashtags} = req.body;
-	console.log(req.files);
+	const isHeroku = process.env.NODE_ENV === 'production';
+
 	try {
 		const newVideo = await Video.create({
 			title,
 			description,
-			fileUrl: video[0].location,
-			thumbUrl: thumb[0].location,
+			fileUrl: isHeroku ? video[0].location : '/' + video[0].path,
+			thumbUrl: isHeroku ? thumb[0].location : '/' + video[0].path,
 			creator: _id,
 			hashtags: Video.formatHashtags(hashtags),
 		});

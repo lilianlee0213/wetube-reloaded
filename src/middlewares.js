@@ -11,12 +11,35 @@ const s3 = new S3Client({
 });
 const svImageUloader = multerS3({
 	s3: s3,
-	bucket: 'wetubeclone2023/images',
+	bucket: 'wetubeclone2023',
+	key: function (request, file, ab_callback) {
+		const newFileName = Date.now() + '-' + file.originalname;
+		const fullPath = 'images/' + newFileName;
+		ab_callback(null, fullPath);
+	},
+	Condition: {
+		StringEquals: {
+			's3:x-amz-acl': ['public-read'],
+		},
+	},
 });
 const s3VideoUploader = multerS3({
 	s3: s3,
-	bucket: 'wetubeclone2023/videos',
+	bucket: 'wetubeclone2023',
+	key: function (request, file, ab_callback) {
+		const newFileName = Date.now() + '-' + file.originalname;
+		const fullPath = 'videos/' + newFileName;
+		ab_callback(null, fullPath);
+	},
+	Condition: {
+		StringEquals: {
+			's3:x-amz-acl': ['public-read'],
+		},
+	},
 });
+
+const isHeroku = process.env.NODE_ENV === 'production';
+
 export const localsMiddleware = (req, res, next) => {
 	res.locals.siteName = 'Wetube';
 	res.locals.loggedIn = Boolean(req.session.loggedIn);
@@ -46,10 +69,10 @@ export const publicOnlyMiddleware = (req, res, next) => {
 export const avatarUpload = multer({
 	dest: 'uploads/avatars',
 	limits: {fileSize: 3000000},
-	storage: svImageUloader,
+	storage: isHeroku ? svImageUloader : undefined,
 });
 export const videoUpload = multer({
 	dest: 'uploads/videos',
 	limits: {fileSize: 100000000},
-	storage: s3VideoUploader,
+	storage: isHeroku ? s3VideoUploader : undefined,
 });
