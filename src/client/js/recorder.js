@@ -1,5 +1,4 @@
 import {createFFmpeg, fetchFile} from '@ffmpeg/ffmpeg';
-
 const recordBtn = document.getElementById('startBtn');
 const video = document.getElementById('preview');
 

@@ -6,8 +6,8 @@
 		'video more'
 		'info more'
 		'comments more';
-	gap: 25px;
-	grid-template-columns: fit-content(100%);
+	gap: 30px;
+	grid-template-columns: 2.5fr 1fr;
 }
 
 .video-container,
